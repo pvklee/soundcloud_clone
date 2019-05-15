@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {Link} from 'react-router-dom'
 
 export default class SessionForm extends React.Component {
@@ -28,13 +29,11 @@ export default class SessionForm extends React.Component {
     const {errors, formType} = this.props;
 
     const buttonValue = (formType == 'login') ? 'Log In' : 'Sign Up';
-    const linkTo = (formType == 'login') ? '/signup' : '/login';
-    const linkText = (formType == 'login') ? 'Sign Up' : 'Log In';
 
     const errorMessages = errors.map(error => <li key={error}>{error}</li>);
 
-    return(
-      <div class="session-form-content">
+    const sessionFormModal = (
+      <div className="session-form-modal">
         <div>
           <ul>{errorMessages}</ul>
         </div>
@@ -62,8 +61,8 @@ export default class SessionForm extends React.Component {
           <br/>
           <button className="session-form-button" onClick={this.handleSubmit}>{buttonValue}</button>
         </form>
-        <Link to={linkTo}><button className="session-form-button">{linkText}</button></Link>
       </div>
-    )
+    );
+    return sessionFormModal;
   }
 }
