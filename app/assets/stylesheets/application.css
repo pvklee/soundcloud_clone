@@ -20,6 +20,7 @@ body{
 }
 
 .header{
+  position: static;
   display: flex;
   justify-content: center;
   height: 40px;
@@ -62,6 +63,8 @@ body{
 
 .main{
   width: 1150px;
+  background-color:white;
+  margin: auto;
 }
 
 .nav-session-display{

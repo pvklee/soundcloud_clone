@@ -17,7 +17,10 @@ class Navbar extends React.Component {
     const sessionDisplay = currentUser ? 
           <div className="nav-session-display">
             <div className="nav-session-item">
-              <span className="header-greeting-text">Hello {currentUser.username}!</span>
+              <Link to='/upload'><button className="upload-button">Upload</button></Link>
+            </div>
+            <div className="nav-session-item">
+              <Link to={`/users/${currentUser.id}`}><span className="header-greeting-text">Hello {currentUser.username}!</span></Link>
             </div>
             <div className="nav-session-item">
               <button className="session-button" onClick={this.handleLogout}>Log Out</button>

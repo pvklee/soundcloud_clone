@@ -2,7 +2,8 @@ import {OPEN_SESSION_FORM_MODAL, CLOSE_SESSION_FORM_MODAL} from '../actions/ui_a
 import merge from 'lodash/merge'
 
 const initialState = {
-  modalState: 'NONE'
+  modalState: 'NONE',
+  genres: ''
 }
 
 export default (state = initialState, action) => {
