@@ -9,7 +9,9 @@ export default class SongForm extends React.Component {
       artist_id: this.props.artistId,
       genre: 'Ambient',
       songFile: null,
-      songUrl: ''
+      songUrl: '',
+      artFile: null,
+      artUrl: ''
     };
     this.update = this.update.bind(this);
     this.updateFile = this.updateFile.bind(this);
@@ -30,22 +32,39 @@ export default class SongForm extends React.Component {
     if (this.state.songFile) {
       formData.append('song[songFile]', this.state.songFile);
     }
+    if (this.state.artFile) {
+      formData.append('song[artFile]', this.state.artFile);
+    }
 
     this.props.createSong(formData)
       .then(data => this.props.history.push(`/users/${this.props.artistId}`));
   }
 
-  updateFile(e){
-    const reader = new FileReader();
-    const file = e.currentTarget.files[0];
-    reader.onloadend = () => {
-      this.setState({ songUrl: reader.result, songFile: file});
-    }
+  updateFile(type){
+    return e => {
+      const reader = new FileReader();
+      const file = e.currentTarget.files[0];
 
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      this.setState({ songUrl: "", songFile: null });
+      let urlType, fileType;
+      switch(type){
+        case 'art':
+          urlType = 'artUrl';
+          fileType = 'artFile';
+          break;
+        case 'song':
+          urlType = 'songUrl';
+          fileType = 'songFile';
+          break;
+      }
+      reader.onloadend = () => {
+        this.setState({ [urlType]: reader.result, [fileType]: file});
+      }
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({ [urlType]: "", [fileType]: null });
+      }
     }
   }
 
@@ -72,13 +91,20 @@ export default class SongForm extends React.Component {
           <label>Song:
             <input
               type="file"
-              onChange={this.updateFile}
+              onChange={this.updateFile('song')}
             />
           </label><br/>
           <ReactAudioPlayer
             src={this.state.songUrl}
             controls
           /><br/>
+          <label>Art:
+            <input
+              type="file"
+              onChange={this.updateFile('art')}
+            />
+          </label><br/>
+          <img src={this.state.artUrl} />
           <button onClick={this.handleSubmit}>Create</button>
         </form>
       </div>

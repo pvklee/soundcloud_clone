@@ -27,9 +27,21 @@ class Api::SongsController < ApplicationController
     end
   end
 
+  def favorite
+    @favorite = Song.find(params[:id]).favorites.create!(user_id: params[:userId])
+    render 'api/favorites/show'
+  end
+
+  def unfavorite
+    @favorite = Song.find(params[:id]).favorites.find_by(user_id: params[:userId])
+    if @favorite.destroy!
+      render 'api/favorites/show'
+    end
+  end
+
   private
 
   def song_params
-    params.require(:song).permit(:title, :artist_id, :songFile, :genre)
+    params.require(:song).permit(:title, :artist_id, :songFile, :artFile, :genre)
   end
 end

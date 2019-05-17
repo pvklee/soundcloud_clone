@@ -4,7 +4,7 @@ import {selectAllSongs} from '../../reducers/selectors'
 import StreamSongsIndex from './stream_songs_index'
 
 const mapStateToProps = state => ({
-  songs: selectAllSongs(state)
+  songs: selectAllSongs(state),
 })
 
 const mapDispatchToProps = dispatch => ({

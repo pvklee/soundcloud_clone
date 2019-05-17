@@ -38,6 +38,22 @@ export const deleteSong = songId => (
   })
 )
 
+export const favoriteSong = (songId, userId) => {
+  return $.ajax({
+    url: `api/songs/${songId}/favorite`,
+    method: 'POST',
+    data: {userId}
+  })
+}
+
+export const unfavoriteSong = (songId, userId) => {
+  return $.ajax({
+    url: `api/songs/${songId}/unfavorite`,
+    method: 'POST',
+    data: {userId}
+  })
+}
+
 // export const createReview = review => (
 //   $.ajax({
 //     url: `api/reviews`,

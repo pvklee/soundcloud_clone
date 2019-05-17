@@ -1,8 +1,9 @@
-import {RECEIVE_SONGS, RECEIVE_SONG, REMOVE_SONG} from '../actions/song_actions'
+import {RECEIVE_SONGS, RECEIVE_SONG, REMOVE_SONG, RECEIVE_FAVORITE, REMOVE_FAVORITE} from '../actions/song_actions'
 import merge from 'lodash/merge'
 
 const songsReducer = (state = {}, action) => {
   Object.freeze(state);
+  let newState;
   switch(action.type){
     case RECEIVE_SONGS:
       if (!action.songs) return state;
@@ -10,8 +11,16 @@ const songsReducer = (state = {}, action) => {
     case RECEIVE_SONG:
       return merge({}, state, {[action.song.id]: action.song})
     case REMOVE_SONG:
-      const newState = Object.assign({}, state);
+      newState = Object.assign({}, state);
       delete newState[action.songId];
+      return newState;
+    case RECEIVE_FAVORITE:
+      newState = Object.assign({}, state);
+      newState[action.songId].favoritedUserIds.push(action.userId);
+      return newState;
+    case REMOVE_FAVORITE:
+      newState = Object.assign(state);
+      newState[action.songId].favoritedUserIds = newState[action.songId].favoritedUserIds.filter(id => id !== action.userId);
       return newState;
     default:
       return state;

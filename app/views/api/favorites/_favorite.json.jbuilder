@@ -1,0 +1,1 @@
+json.extract! favorite, :id, :user_id, :song_id, :created_at

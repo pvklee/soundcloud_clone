@@ -27,5 +27,11 @@ class Song < ApplicationRecord
 
   has_one_attached :songFile
 
+  has_one_attached :artFile
+
+  has_many :favorites, foreign_key: :song_id
+  
+  has_many :favorited_users, through: :favorites, source: :user
+
   
 end

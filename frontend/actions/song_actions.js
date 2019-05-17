@@ -3,6 +3,8 @@ import * as APIUtil from '../util/song_api_util'
 export const RECEIVE_SONGS = "RECEIVE_SONGS"
 export const RECEIVE_SONG = "RECEIVE_SONG"
 export const REMOVE_SONG = "REMOVE_SONG"
+export const RECEIVE_FAVORITE = "RECEIVE_FAVORITE"
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE"
 
 const receiveSongs = ({songs, artists}) => ({
   type: RECEIVE_SONGS,
@@ -21,6 +23,22 @@ const removeSong = ({songId, artistId}) => ({
   songId,
   artistId
 })
+
+const receiveFavorite = ({userId, songId}) => {
+  return ({
+    type: RECEIVE_FAVORITE,
+    userId,
+    songId
+  })
+}
+
+const removeFavorite = ({userId, songId}) => {
+  return ({
+    type: REMOVE_FAVORITE,
+    userId,
+    songId
+  })
+}
 
 //async
 
@@ -47,4 +65,14 @@ export const createSong = song => dispatch => (
 export const deleteSong = songId => dispatch => (
   APIUtil.deleteSong(songId)
     .then(song => dispatch(removeSong(song)))
+)
+
+export const favoriteSong = (songId, userId) => dispatch => (
+  APIUtil.favoriteSong(songId, userId)
+    .then(favorite => dispatch(receiveFavorite(favorite)))
+)
+
+export const unfavoriteSong = (songId, userId) => dispatch => (
+  APIUtil.unfavoriteSong(songId, userId)
+    .then(favorite => dispatch(removeFavorite(favorite)))
 )

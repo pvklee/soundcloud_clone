@@ -1,5 +1,5 @@
 import React from 'react'
-import StreamSongsIndexItem from './stream_songs_index_item'
+import SongsIndexItemContainer from '../shared_song_index/songs_index_item_container'
 
 export default class SongsIndex extends React.Component {
   componentDidMount(){
@@ -9,7 +9,7 @@ export default class SongsIndex extends React.Component {
   render(){
     const {songs} = this.props;
     const songsList = songs.map(song=>(
-      <StreamSongsIndexItem key={song.id} song={song}/>
+      <SongsIndexItemContainer key={song.id} song={song}/>
     ))
 
     return (

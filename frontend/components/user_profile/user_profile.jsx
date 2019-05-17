@@ -18,7 +18,6 @@ export default class UserProfile extends React.Component {
     if (!this.props.user) return null;
 
     const createdSongIds = this.props.user.createdSongIds || []
-
     return (
       <div>
         {this.props.user.username}
