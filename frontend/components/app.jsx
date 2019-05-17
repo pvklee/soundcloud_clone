@@ -21,7 +21,7 @@ const App = () => (
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
       <ProtectedRoute path="/upload" component={SongFormContainer} />
-      <ProtectedRoute path="/users/:userId" component={UserProfileContainer} />
+      <Route path="/users/:userId" component={UserProfileContainer} />
       {/* <AuthRoute path="/logout" component={Logout} /> */}
     </main>
     <footer>

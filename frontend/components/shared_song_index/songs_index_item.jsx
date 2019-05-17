@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactAudioPlayer from 'react-audio-player';
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {deleteSong, favoriteSong, unfavoriteSong} from '../../actions/song_actions'
+import {Link, withRouter} from 'react-router-dom'
 
 class SongsIndexItem extends React.Component {
   constructor(props){
@@ -21,6 +19,7 @@ class SongsIndexItem extends React.Component {
 
   setToggleFavoriteTypeState(){
     const {currentUser, song} = this.props;
+    if (!currentUser) return;
     const favoriteType = (currentUser.favoriteSongIds.includes(song.id)) ? (
         'Unfavorite'
       ) : (
@@ -35,6 +34,11 @@ class SongsIndexItem extends React.Component {
 
   toggleFavorite(){
     const {song, currentUser, favoriteSong, unfavoriteSong} = this.props;
+    if(!currentUser){
+      this.props.history.push('/login');
+      return;
+    }
+
     this.state.toggleFavoriteType == 'Favorite' ? (
         favoriteSong(song.id, currentUser.id).then(()=>this.setState({toggleFavoriteType: 'Unfavorite'}))
       ) : (
@@ -44,7 +48,7 @@ class SongsIndexItem extends React.Component {
 
   render(){
     const {song, artist, currentUser} = this.props;
-    const deleteSong = (currentUser.id == artist.id) ? (
+    const deleteSong = (!!currentUser && currentUser.id == artist.id) ? (
       <button onClick={this.handleDelete}>Delete</button>
     ) : ''
 
@@ -72,19 +76,4 @@ class SongsIndexItem extends React.Component {
   }
 }
 
-
-const mapStateToProps = (state, {song}) => ({
-  artist: state.entities.users[song.artist_id],
-  currentUser: state.entities.users[state.session.currentUserId],
-})
-
-const mapDispatchToProps = dispatch => ({
-  deleteSong: (id) => dispatch(deleteSong(id)),
-  favoriteSong: (songId, userId) => dispatch(favoriteSong(songId, userId)),
-  unfavoriteSong: (songId, userId) => dispatch(unfavoriteSong(songId, userId))
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SongsIndexItem)
+export default withRouter(SongsIndexItem)
