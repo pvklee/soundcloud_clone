@@ -7,8 +7,26 @@ import {deleteSong, favoriteSong, unfavoriteSong} from '../../actions/song_actio
 class SongsIndexItem extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      toggleFavoriteType: 'Favorite'
+    }
     this.handleDelete = this.handleDelete.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
+    this.setToggleFavoriteTypeState = this.setToggleFavoriteTypeState.bind(this);
+  }
+
+  componentDidMount(){
+    this.setToggleFavoriteTypeState();
+  }
+
+  setToggleFavoriteTypeState(){
+    const {currentUser, song} = this.props;
+    const favoriteType = (currentUser.favoriteSongIds.includes(song.id)) ? (
+        'Unfavorite'
+      ) : (
+        'Favorite'
+      )
+    this.setState({toggleFavoriteType: favoriteType});
   }
 
   handleDelete(){
@@ -16,13 +34,17 @@ class SongsIndexItem extends React.Component {
   }
 
   toggleFavorite(){
-    const {song, currentUserId, unfavoriteSong} = this.props;
-    unfavoriteSong(song.id, currentUserId);
+    const {song, currentUser, favoriteSong, unfavoriteSong} = this.props;
+    this.state.toggleFavoriteType == 'Favorite' ? (
+        favoriteSong(song.id, currentUser.id).then(()=>this.setState({toggleFavoriteType: 'Unfavorite'}))
+      ) : (
+        unfavoriteSong(song.id, currentUser.id).then(()=>this.setState({toggleFavoriteType: 'Favorite'}))
+      )
   }
 
   render(){
-    const {song, artist, currentUserId} = this.props;
-    const deleteSong = (currentUserId == artist.id) ? (
+    const {song, artist, currentUser} = this.props;
+    const deleteSong = (currentUser.id == artist.id) ? (
       <button onClick={this.handleDelete}>Delete</button>
     ) : ''
 
@@ -42,7 +64,7 @@ class SongsIndexItem extends React.Component {
             src={song.songUrl}
             controls
           />
-          <button onClick={this.toggleFavorite}>Unfavorite</button>
+          <button onClick={this.toggleFavorite}>{this.state.toggleFavoriteType}</button>
           {deleteSong}
         </div>
       </div>
@@ -53,7 +75,7 @@ class SongsIndexItem extends React.Component {
 
 const mapStateToProps = (state, {song}) => ({
   artist: state.entities.users[song.artist_id],
-  currentUserId: state.session.currentUserId
+  currentUser: state.entities.users[state.session.currentUserId],
 })
 
 const mapDispatchToProps = dispatch => ({
