@@ -12,6 +12,12 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
 
+  def createdSongIdsByFavoritesCount
+    Song.where('artist_id = ?', self.id).favorites_descending.map {|song| song.id}
+  end
+
+  # auth
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

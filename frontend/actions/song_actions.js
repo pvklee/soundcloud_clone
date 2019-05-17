@@ -6,10 +6,11 @@ export const REMOVE_SONG = "REMOVE_SONG"
 export const RECEIVE_FAVORITE = "RECEIVE_FAVORITE"
 export const REMOVE_FAVORITE = "REMOVE_FAVORITE"
 
-const receiveSongs = ({songs, artists}) => ({
+const receiveSongs = ({songs, artists, filteredSongIds}) => ({
   type: RECEIVE_SONGS,
   songs,
-  artists
+  artists,
+  filteredSongIds
 })
 
 const receiveSong = ({song, artist}) => ({

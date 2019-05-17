@@ -33,5 +33,21 @@ class Song < ApplicationRecord
   
   has_many :favorited_users, through: :favorites, source: :user
 
-  
+  def num_favorites
+    favorites.count;
+  end
+
+  def self.allSongsByFavoritesCount
+    Song.favorites_descending.map {|song| song.id}
+  end
+
+  def self.favorites_descending
+    select('songs.*, count(favorites.id) as favorites_count').joins('LEFT OUTER JOIN favorites ON favorites.song_id = songs.id').group('songs.id').order('favorites_count desc')
+    # SELECT songs.*, count(favorites.id) as favorites_count
+    # FROM songs
+    # LEFT OUTER JOIN favorites
+    # ON songs.id = favorites.song_id
+    # GROUP BY songs.id
+    # ORDER BY favorites_count desc;
+  end
 end

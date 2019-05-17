@@ -12,3 +12,5 @@
     end
   end
 end
+
+json.filteredSongIds @filteredSongIds

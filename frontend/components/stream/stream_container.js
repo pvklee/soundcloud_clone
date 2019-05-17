@@ -7,6 +7,11 @@ const mapStateToProps = state => ({
   songs: selectAllSongs(state)
 })
 
+const mapDispatchToProps = dispatch => ({
+  fetchSongs: () => dispatch(fetchSongs())
+})
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(Stream)

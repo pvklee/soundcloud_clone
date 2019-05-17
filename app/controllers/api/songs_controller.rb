@@ -1,6 +1,8 @@
 class Api::SongsController < ApplicationController
   def index
-    @songs = params[:userId] ? User.find(params[:userId]).songs : Song.all.includes(:artist)
+    # @songs = params[:userId] ? User.find(params[:userId]).songs : Song.all.includes(:artist)
+    @songs = params[:userId] ? Song.where('songs.artist_id = ?', params[:userId]) : Song.favorites_descending.includes(:artist)
+    @filteredSongIds = Song.allSongsByFavoritesCount
   end
 
   def create
