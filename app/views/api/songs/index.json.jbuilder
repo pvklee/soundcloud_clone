@@ -3,6 +3,7 @@
     json.set! song.id do
       json.partial! 'song', song: song
       json.favoritedUserIds []
+      json.commentIds []
     end
   end
 

@@ -26,12 +26,11 @@ class Song < ApplicationRecord
   belongs_to :artist, class_name: :User, foreign_key: :artist_id
 
   has_one_attached :songFile
-
   has_one_attached :artFile
 
   has_many :favorites, foreign_key: :song_id
-  
   has_many :favorited_users, through: :favorites, source: :user
+  has_many :comments, foreign_key: :song_id
 
   def num_favorites
     favorites.count;

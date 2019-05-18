@@ -1,6 +1,7 @@
 json.song do
   json.partial! 'song', song: @song
   json.favoritedUserIds @song.favorited_users.pluck(:id)
+  json.commentIds @song.comments.pluck(:id)
 end
 
 json.artist do

@@ -2,8 +2,6 @@ import React from 'react'
 import SongsIndexItemContainer from '../shared_song_index/songs_index_item_container'
 
 export default class SongsIndex extends React.Component {
-
-
   render(){
     const {songs, filteredSongIds} = this.props;
     if (!filteredSongIds) {return null};

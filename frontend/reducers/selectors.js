@@ -9,3 +9,7 @@ export const selectAllSongs = state => (
 export const selectSongsFromSongIds = (state, songIds) => {
   return songIds.map(id => state.entities.songs[id])
 }
+
+export const selectCommentsFromCommentIds = (state, commentIds) => {
+  return commentIds.map(id => state.entities.comments[id])
+}

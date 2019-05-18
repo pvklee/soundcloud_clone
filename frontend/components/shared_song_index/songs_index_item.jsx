@@ -75,7 +75,7 @@ class SongsIndexItem extends React.Component {
         <div>
           <div>
             <Link to={`/users/${artist.id}`}>{artist.username}</Link><br/>
-            {song.title}
+            <Link to={`/songs/${song.id}`}>{song.title}</Link>
     
           </div>
           <ReactAudioPlayer

@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :favorites, foreign_key: :user_id
   has_many :favorite_songs, through: :favorites, source: :song
+  has_many :comments, foreign_key: :user_id
 
   after_initialize :ensure_session_token
 
