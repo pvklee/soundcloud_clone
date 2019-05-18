@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {deleteSong, favoriteSong, unfavoriteSong} from '../../actions/song_actions'
+import {setCurrentSongTime} from '../../actions/ui_actions'
 import SongsIndexItem from './songs_index_item'
 
 const mapStateToProps = (state, {song}) => ({
@@ -10,7 +11,8 @@ const mapStateToProps = (state, {song}) => ({
 const mapDispatchToProps = dispatch => ({
   deleteSong: (id) => dispatch(deleteSong(id)),
   favoriteSong: (songId, userId) => dispatch(favoriteSong(songId, userId)),
-  unfavoriteSong: (songId, userId) => dispatch(unfavoriteSong(songId, userId))
+  unfavoriteSong: (songId, userId) => dispatch(unfavoriteSong(songId, userId)),
+  setCurrentSongTime: time => dispatch(setCurrentSongTime(time))
 })
 
 export default connect(

@@ -14,10 +14,13 @@ class SongsIndexItem extends React.Component {
     this.setToggleFavoriteTypeState = this.setToggleFavoriteTypeState.bind(this);
     this.setSongFavorite = this.setSongFavorite.bind(this);
     this.setSongUnfavorite = this.setSongUnfavorite.bind(this);
+    this.getSongTimeListen = this.getSongTimeListen.bind(this);
+    this.getSongTimePauseSeek = this.getSongTimePauseSeek.bind(this);
   }
 
   componentDidMount(){
     this.setToggleFavoriteTypeState();
+    this.props.setCurrentSongTime(0);
   }
 
   setToggleFavoriteTypeState(){
@@ -60,6 +63,14 @@ class SongsIndexItem extends React.Component {
     })
   }
 
+  getSongTimeListen(e){
+    this.props.setCurrentSongTime(e);
+  }
+
+  getSongTimePauseSeek(e){
+    this.props.setCurrentSongTime(e.target.currentTime);
+  }
+
   render(){
     const {song, artist, currentUser} = this.props;
     const deleteSong = (!!currentUser && currentUser.id == artist.id) ? (
@@ -81,6 +92,10 @@ class SongsIndexItem extends React.Component {
           <ReactAudioPlayer
             src={song.songUrl}
             controls
+            listenInterval={1000}
+            onListen={this.getSongTimeListen}
+            onPause={this.getSongTimePauseSeek}
+            onSeeked={this.getSongTimePauseSeek}
           /><br/>
           <button onClick={this.toggleFavorite}>{this.state.toggleFavoriteType}</button>
           <span>{favoriteCountText}</span>

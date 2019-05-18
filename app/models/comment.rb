@@ -1,7 +1,8 @@
 class Comment < ApplicationRecord
-  validates :body, :user_id, :song_id, presence: true
+  validates :body, :user_id, :song_id, :song_time, presence: true
 
   after_initialize :ensure_song_id!
+  after_initialize :ensure_song_time!
 
   belongs_to :user, foreign_key: :user_id
   belongs_to :song, foreign_key: :song_id
@@ -11,5 +12,9 @@ class Comment < ApplicationRecord
   private
   def ensure_song_id!
     self.song_id ||= self.parent_comment.song_id if parent_comment
+  end
+
+  def ensure_song_time!
+    self.song_time ||= self.parent_comment.song_time if parent_comment
   end
 end

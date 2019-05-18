@@ -8,9 +8,11 @@ const receiveComments = ({comments}) => ({
   comments
 })
 
-const receiveComment = (comment) => ({
+const receiveComment = ({comment, userId, songId}) => ({
   type: RECEIVE_COMMENT,
-  comment
+  comment,
+  userId,
+  songId
 })
 
 //async
