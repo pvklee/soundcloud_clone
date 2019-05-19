@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :favorite_songs, through: :favorites, source: :song
   has_many :comments, foreign_key: :user_id
 
+  has_one_attached :profilePictureFile
+
   after_initialize :ensure_session_token
 
   def createdSongIdsByFavoritesCount

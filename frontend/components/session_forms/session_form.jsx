@@ -37,7 +37,7 @@ export default class SessionForm extends React.Component {
         <div>
           <ul>{errorMessages}</ul>
         </div>
-        <form class="session-form">
+        <form className="session-form">
           <input 
             type='text'
             value={this.state.username}

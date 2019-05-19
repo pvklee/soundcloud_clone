@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {fetchSong} from '../../actions/song_actions'
+import {fetchSong, updateSongArt} from '../../actions/song_actions'
 import {fetchCommentsFromSong} from '../../actions/comment_actions'
 import SongDetail from './song_detail'
 
@@ -12,7 +12,8 @@ const mapStateToProps = (state, {match}) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchSong: (songId) => dispatch(fetchSong(songId)),
-  fetchCommentsFromSong: (commentId) => dispatch(fetchCommentsFromSong(commentId))
+  fetchCommentsFromSong: (commentId) => dispatch(fetchCommentsFromSong(commentId)),
+  updateSongArt: song => dispatch(updateSongArt(song))
 })
 
 export default connect(

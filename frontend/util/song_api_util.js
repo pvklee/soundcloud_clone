@@ -54,10 +54,12 @@ export const unfavoriteSong = (songId, userId) => {
   })
 }
 
-// export const createReview = review => (
-//   $.ajax({
-//     url: `api/reviews`,
-//     method: 'POST',
-//     data: {review},
-//   })
-// )
+export const updateSongArt = ({formData, songId}) => (
+  $.ajax({
+    url: `api/songs/${songId}`,
+    method: 'PATCH',
+    data: formData,
+    contentType: false,
+    processData: false
+  })
+)

@@ -75,13 +75,13 @@ class SongsIndexItem extends React.Component {
     const {song, artist, currentUser} = this.props;
     const deleteSong = (!!currentUser && currentUser.id == artist.id) ? (
       <button onClick={this.handleDelete}>Delete</button>
-    ) : ''
+    ) : null
     const favoriteCountText = `Favorited by ${this.state.numFavorites}`
-  
+
     return(
       <div>
         <div>
-          <img src={song.artUrl}/>
+          <img src={song.artUrl} className="song-art-index"/>
         </div>
         <div>
           <div>

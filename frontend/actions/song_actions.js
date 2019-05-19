@@ -77,3 +77,8 @@ export const unfavoriteSong = (songId, userId) => dispatch => (
   APIUtil.unfavoriteSong(songId, userId)
     .then(favorite => dispatch(removeFavorite(favorite)))
 )
+
+export const updateSongArt = (song) => dispatch => (
+  APIUtil.updateSongArt(song)
+    .then(song => dispatch(receiveSong(song)))
+)

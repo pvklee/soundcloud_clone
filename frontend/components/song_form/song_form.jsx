@@ -104,7 +104,7 @@ export default class SongForm extends React.Component {
               onChange={this.updateFile('art')}
             />
           </label><br/>
-          <img src={this.state.artUrl} />
+          <img src={this.state.artUrl} className="song-art-detail"/>
           <button onClick={this.handleSubmit}>Create</button>
         </form>
       </div>

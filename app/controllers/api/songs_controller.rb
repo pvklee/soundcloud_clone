@@ -19,7 +19,17 @@ class Api::SongsController < ApplicationController
   end
 
   def update
-    @song = Song.update(params[:id], song_params)
+    @song = Song.find(params[:id])
+    
+    if params[:artFile]  
+      @song.artFile.attach(params[:artFile])
+    elsif song_params
+      @song.update(song_params)
+    else
+      render json: @song.errors.full_messages, status: 422
+    end
+
+    render 'api/songs/show'
   end
 
   def destroy

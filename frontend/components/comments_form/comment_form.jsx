@@ -27,6 +27,9 @@ export default class CommentForm extends React.Component {
   }
 
   render(){
+
+    if (!this.props.currentUserId) {return null};
+
     return (
       <div>
         {/* <div>
