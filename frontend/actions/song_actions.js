@@ -5,6 +5,7 @@ export const RECEIVE_SONG = "RECEIVE_SONG"
 export const REMOVE_SONG = "REMOVE_SONG"
 export const RECEIVE_FAVORITE = "RECEIVE_FAVORITE"
 export const REMOVE_FAVORITE = "REMOVE_FAVORITE"
+export const RECEIVE_SONG_SEARCH_IDS = "RECEIVE_SONG_SEARCH_IDS"
 
 const receiveSongs = ({songs, artists, filteredSongIds}) => ({
   type: RECEIVE_SONGS,
@@ -40,6 +41,13 @@ const removeFavorite = ({userId, songId}) => {
     songId
   })
 }
+
+const receiveSongSearchIds = ({songs, songSearchIds, artists}) => ({
+  type: RECEIVE_SONG_SEARCH_IDS,
+  songs,
+  songSearchIds,
+  artists
+})
 
 //async
 
@@ -86,4 +94,9 @@ export const updateSongArt = (song) => dispatch => (
 export const markPlayForSong = songId => dispatch => (
   APIUtil.markPlayForSong(songId)
     .then(song => dispatch(receiveSong(song)))
+)
+
+export const fetchSongSearchIds = query => dispatch => (
+  APIUtil.fetchSongSearchIds(query)
+    .then(songs=>dispatch(receiveSongSearchIds(songs)))
 )

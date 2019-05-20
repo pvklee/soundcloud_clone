@@ -1,7 +1,18 @@
 class Api::SongsController < ApplicationController
   def index
     # @songs = params[:userId] ? User.find(params[:userId]).songs : Song.all.includes(:artist)
-    @songs = params[:userId] ? Song.where('songs.artist_id = ?', params[:userId]) : Song.favorites_descending.includes(:artist)
+    if params[:userId]
+      @songs = Song.where('songs.artist_id = ?', params[:userId])
+    else
+      @songs = Song.favorites_descending.includes(:artist)
+    end
+
+    if params[:query] && (params[:query] != "")
+      query = params[:query] + '%'
+      @songs = @songs.where('songs.title ILIKE ?', query)
+      @songSearchIds = @songs.map {|song| song.id}
+    end
+
     @filteredSongIds = Song.allSongsByFavoritesCount
   end
 

@@ -61,6 +61,36 @@ body{
   height: 100%
 }
 
+.search-bar{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.search-bar-list{
+  position: absolute;
+  top: 40px;
+  background-color: black;
+  width: 100%;
+  z-index: 4;
+}
+
+.search-bar-list-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 30px;
+  padding: 0 3px;
+  border: 1px solid gray;
+}
+.search-bar-input{
+  background-color: gray;
+  padding: 3px;
+  width: 300px;
+  border-radius: 3px;
+  margin: 0 5px;
+}
+
 .main{
   width: 1150px;
   background-color:white;
@@ -220,3 +250,4 @@ body{
   padding: 2px;
   background-color: black;
 }
+

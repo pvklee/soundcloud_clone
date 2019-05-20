@@ -1,4 +1,4 @@
-import {RECEIVE_SONGS, RECEIVE_SONG, REMOVE_SONG, RECEIVE_FAVORITE, REMOVE_FAVORITE} from '../actions/song_actions'
+import {RECEIVE_SONGS, RECEIVE_SONG, REMOVE_SONG, RECEIVE_FAVORITE, REMOVE_FAVORITE, RECEIVE_SONG_SEARCH_IDS} from '../actions/song_actions'
 import {RECEIVE_COMMENT} from '../actions/comment_actions'
 import merge from 'lodash/merge'
 
@@ -28,6 +28,8 @@ const songsReducer = (state = {}, action) => {
     case RECEIVE_COMMENT:
       newState = Object.assign(state);
       newState[action.songId].commentIds.push(action.comment.id);
+    case RECEIVE_SONG_SEARCH_IDS:
+      return merge({}, state, action.songs)
     default:
       return state;
   }

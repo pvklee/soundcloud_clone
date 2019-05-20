@@ -15,3 +15,4 @@
 end
 
 json.filteredSongIds @filteredSongIds
+json.songSearchIds @songSearchIds

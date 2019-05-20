@@ -83,7 +83,6 @@ class SongsIndexItem extends React.Component {
 
   render(){
     const {song, artist, currentUser, songDetail} = this.props;
-
     if (!song) {return null};
 
     const deleteSong = (!!currentUser && currentUser.id == artist.id) ? (
