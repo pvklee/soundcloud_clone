@@ -1,9 +1,9 @@
 import {connect} from 'react-redux'
-import {setCurrentSongTime} from '../../actions/ui_actions'
+import {markPlayForSong} from '../../actions/song_actions'
 import AudioPlayer from './audio_player'
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentSongTime: time => dispatch(setCurrentSongTime(time))
+  markPlayForSong: songId => dispatch(markPlayForSong(songId))
 })
 
 export default connect(

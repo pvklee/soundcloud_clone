@@ -20,9 +20,11 @@ class Api::SongsController < ApplicationController
 
   def update
     @song = Song.find(params[:id])
-    
     if params[:artFile]  
       @song.artFile.attach(params[:artFile])
+    elsif params[:markPlay]
+      @song.mark_play!
+      @song.save
     elsif song_params
       @song.update(song_params)
     else

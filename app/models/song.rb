@@ -20,7 +20,7 @@ class Song < ApplicationRecord
     'World'
   ].sort.freeze
   
-  validates :title, :artist_id, :genre, presence: true
+  validates :title, :artist_id, :genre, :play_count, presence: true
   validates :genre, inclusion: { in: GENRES }
 
   belongs_to :artist, class_name: :User, foreign_key: :artist_id
@@ -32,6 +32,8 @@ class Song < ApplicationRecord
   has_many :favorited_users, through: :favorites, source: :user
   has_many :comments, foreign_key: :song_id
   has_many :commented_users, through: :comments, source: :user
+
+  after_initialize :ensure_play_count
 
   def num_favorites
     favorites.count;
@@ -49,5 +51,15 @@ class Song < ApplicationRecord
     # ON songs.id = favorites.song_id
     # GROUP BY songs.id
     # ORDER BY favorites_count desc;
+  end
+
+  def mark_play!
+    self.play_count = self.play_count + 1
+  end
+
+  private
+
+  def ensure_play_count
+    self.play_count ||= 0
   end
 end

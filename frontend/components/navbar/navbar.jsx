@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link, NavLink, withRouter} from 'react-router-dom'
+import SearchBarContainer from '../search_bar/search_bar_container'
 
 class Navbar extends React.Component {
   constructor(props){
@@ -53,6 +54,7 @@ class Navbar extends React.Component {
         <NavLink to="/library" className="nav-button" activeClassName="nav-button-active">
             Library
         </NavLink>
+        <SearchBarContainer />
         {sessionDisplay}
       </div>
     )

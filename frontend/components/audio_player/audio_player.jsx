@@ -38,13 +38,19 @@ export default class AudioPlayer extends React.Component {
     super(props);
     this.state = {
       waveSurfer: null,
-      isReady: false
+      isReady: false,
+      timePlayed: 0,
+      timePlayedNecessaryForCount: 30,
+      playMarked: false,
+      listenMarked: false
     };
+    this.markListen = this.markListen.bind(this);
+    this.markPlay = this.markPlay.bind(this);
   }
 
   componentDidMount() {
     let isReady = this.state.isReady;
-    const defaultOptions = {container: `#${CONTAINER_ID + this.props.divId}`};
+    const defaultOptions = {container: `#${CONTAINER_ID + this.props.songId}`};
     const options = Object.assign({}, this.props.options, defaultOptions);
 
     const waveSurfer = WaveSurfer.create(options);
@@ -55,23 +61,35 @@ export default class AudioPlayer extends React.Component {
       isReady = true
       if (this.props.playing) waveSurfer.play()
       this.setState({waveSurfer, isReady})
+      if (waveSurfer.getDuration() < 30) {
+        this.setState({timePlayedNecessaryForCount: (waveSurfer.getDuration() * .5)});
+      }
     })
 
     waveSurfer.on('finish', () => {
       waveSurfer.seekTo(0);
       this.props.handleTogglePlay();
+      if (this.state.playMarked) {this.setState({playMarked: false, timePlayed: 0})}
     })
-    
-    const {songDetail, setCurrentSongTime, handlePosChange, handleTogglePlay} = this.props;
 
-    waveSurfer.on('play', () => {
-      
-    });
+    const {songDetail, handlePosChange, handleTogglePlay} = this.props;
+
+    let startTime, endTime;
+
+    waveSurfer.on('play', ()=>{
+      startTime = new Date();
+    })
     waveSurfer.on('audioprocess', () => {
       handlePosChange(waveSurfer.getCurrentTime());
+      endTime = new Date();
+      if (!this.state.listenMarked && this.state.timePlayed + (endTime - startTime)/1000 > 1) {this.markListen();};
+      if (!this.state.playMarked && this.state.timePlayed + (endTime - startTime)/1000 > this.state.timePlayedNecessaryForCount) {this.markPlay();};
     });
     waveSurfer.on('pause', () => {
-      // if(songDetail) setCurrentSongTime(waveSurfer.getCurrentTime());
+      endTime = new Date();
+      const prevTimePlayed = this.state.timePlayed;
+      const newTimePlayed = prevTimePlayed + (endTime - startTime) / 1000
+      this.setState({timePlayed: newTimePlayed});
       handlePosChange(waveSurfer.getCurrentTime());
     });
     waveSurfer.on('seek', () => {
@@ -100,10 +118,21 @@ export default class AudioPlayer extends React.Component {
       nextProps.playing ? waveSurfer.play() : waveSurfer.pause()
   }
 
+  markPlay(){
+    this.props.markPlayForSong(this.props.songId);
+    this.setState({playMarked: true});
+  }
+
+  markListen(){
+    //TODO
+    // this.props.markListenForSong();
+    this.setState({listenMarked: true});
+  }
+
   render(){
-    const {divId, className, loader} = this.props;
+    const {songId, className, loader} = this.props;
     return(
-      <div id={CONTAINER_ID + divId} className={className}>
+      <div id={CONTAINER_ID + songId} className={className}>
         {!this.state.isReady && loader}
       </div>
     )
@@ -117,5 +146,5 @@ export default class AudioPlayer extends React.Component {
 //   playing: PropTypes.bool,
 //   peaks: PropTypes.array,
 //   loader: PropTypes.any,
-//   divId: PropTypes.any
+//   songId: PropTypes.any
 // }

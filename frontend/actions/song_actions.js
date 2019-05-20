@@ -82,3 +82,8 @@ export const updateSongArt = (song) => dispatch => (
   APIUtil.updateSongArt(song)
     .then(song => dispatch(receiveSong(song)))
 )
+
+export const markPlayForSong = songId => dispatch => (
+  APIUtil.markPlayForSong(songId)
+    .then(song => dispatch(receiveSong(song)))
+)

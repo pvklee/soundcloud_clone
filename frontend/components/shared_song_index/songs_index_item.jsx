@@ -1,26 +1,31 @@
 import React from 'react'
-import ReactAudioPlayer from 'react-audio-player';
 import {Link, withRouter} from 'react-router-dom'
+import AudioPlayerContainer from '../audio_player/audio_player_container'
+import {formatTime} from '../../util/time_util'
 
 class SongsIndexItem extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       toggleFavoriteType: 'Favorite',
-      numFavorites: this.props.song.num_favorites
+      numFavorites: this.props.song.num_favorites,
+      playing: false,
+      time: 0
     }
     this.handleDelete = this.handleDelete.bind(this);
+
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.setToggleFavoriteTypeState = this.setToggleFavoriteTypeState.bind(this);
     this.setSongFavorite = this.setSongFavorite.bind(this);
     this.setSongUnfavorite = this.setSongUnfavorite.bind(this);
-    this.getSongTimeListen = this.getSongTimeListen.bind(this);
-    this.getSongTimePauseSeek = this.getSongTimePauseSeek.bind(this);
+
+    this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    this.handlePosChange = this.handlePosChange.bind(this);
   }
 
   componentDidMount(){
     this.setToggleFavoriteTypeState();
-    this.props.setCurrentSongTime(0);
+    if (this.props.songDetail) this.props.setCurrentSongTime(0);
   }
 
   setToggleFavoriteTypeState(){
@@ -63,20 +68,45 @@ class SongsIndexItem extends React.Component {
     })
   }
 
-  getSongTimeListen(e){
-    this.props.setCurrentSongTime(e);
+  handleTogglePlay() {
+    this.setState({
+      playing: !this.state.playing
+    });
   }
 
-  getSongTimePauseSeek(e){
-    this.props.setCurrentSongTime(e.target.currentTime);
+  handlePosChange(time) {
+    if (this.props.songDetail && Math.floor(time) != Math.floor(this.state.time)) {this.props.setCurrentSongTime(time)}
+    this.setState({
+      time: time
+    });
   }
 
   render(){
-    const {song, artist, currentUser} = this.props;
+    const {song, artist, currentUser, songDetail} = this.props;
+
+    if (!song) {return null};
+
     const deleteSong = (!!currentUser && currentUser.id == artist.id) ? (
       <button onClick={this.handleDelete}>Delete</button>
     ) : null
-    const favoriteCountText = `Favorited by ${this.state.numFavorites}`
+    const favoriteCountText = `Favorited by ${this.props.song.num_favorites}`;
+    let playCountText = `Played ${this.props.song.play_count} time`;
+    if (song.play_count != 1) {playCountText += 's'}
+
+    const audioPlayerOptions = {
+      barWidth: 3,
+      waveColor: "white",
+      progressColor: "red",
+      height: 200,
+      cursorWidth: 0,
+      normalize: true
+    }
+
+    const buttonPlayPauseClass = this.state.playing ? 'pause-button' : 'play-button';
+
+    const timeDisplay = (this.state.time == 0) ? null : (
+      <div className="time-display">{formatTime(this.state.time)}</div>
+    )
 
     return(
       <div>
@@ -89,16 +119,25 @@ class SongsIndexItem extends React.Component {
             <Link to={`/songs/${song.id}`}>{song.title}</Link>
     
           </div>
-          <ReactAudioPlayer
-            src={song.songUrl}
-            controls
-            listenInterval={1000}
-            onListen={this.getSongTimeListen}
-            onPause={this.getSongTimePauseSeek}
-            onSeeked={this.getSongTimePauseSeek}
-          /><br/>
+          <div className="audio-player-outer-container">
+            <button className={`audio-player-play-button ${buttonPlayPauseClass}`} onClick={this.handleTogglePlay}></button>
+            <AudioPlayerContainer
+              audioFile={song.songUrl}
+              playing={this.state.playing}
+              songId={song.id}
+              song={song}
+              currentUser={currentUser}
+              handleTogglePlay={this.handleTogglePlay}
+              handlePosChange={this.handlePosChange}
+              options={audioPlayerOptions}
+              songDetail={songDetail}
+              className="audio-player-container"
+            />
+            {timeDisplay}
+          </div>
           <button onClick={this.toggleFavorite}>{this.state.toggleFavoriteType}</button>
           <span>{favoriteCountText}</span>
+          <span>{playCountText}</span>
           {deleteSong}
         </div>
       </div>

@@ -12,7 +12,7 @@ const mapStateToProps = (state, {match}) => ({
 const mapDispatchToProps = dispatch => ({
   fetchUser: (id) => dispatch(fetchUser(id)),
   fetchSongsFromUser: (userId) => dispatch(fetchSongsFromUser(userId)),
-  updateUserProfilePicture: profilePicture => dispatch(updateUserProfilePicture(profilePicture))
+  updateUserProfilePicture: user => dispatch(updateUserProfilePicture(user))
 })
 
 export default connect(

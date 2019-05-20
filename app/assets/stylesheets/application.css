@@ -163,3 +163,60 @@ body{
   width: 50px;
   height: 50px;
 }
+
+.audio-player-outer-container{
+  position: relative;
+  background-image: linear-gradient( rgb(80, 135, 255), rgb(121, 183, 199));
+  height: 100px;
+  width: 700px;
+  overflow: hidden;
+}
+
+.audio-player-play-button{
+  position: absolute;
+  z-index: 4;
+  width: 40px;
+  height: 40px;
+  background-color: rgb(255, 72, 0);
+  border-radius: 50%;
+  margin: 5px;
+}
+
+
+.play-button:after{
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  left: 12px;
+  top: 10px;
+  border-top: 10px solid transparent;
+  border-left: 20px solid white;
+  border-bottom: 10px solid transparent;
+}
+
+.pause-button:after{
+  position: absolute;
+  left: 12.5px;
+  top: 10px;
+  content: "";
+  border-style: double;
+  width: 0;
+  height: 20px;
+  border-width: 0px 15px 0px 0px;
+  border-color: white;
+}
+
+.audio-player-container{
+  cursor: pointer;
+}
+
+.time-display{
+  position: absolute;
+  bottom: 0px;
+  z-index: 3;
+  color: orangered;
+  font-size: 10pt;
+  padding: 2px;
+  background-color: black;
+}

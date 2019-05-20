@@ -18,10 +18,12 @@ const songsReducer = (state = {}, action) => {
     case RECEIVE_FAVORITE:
       newState = Object.assign({}, state);
       newState[action.songId].favoritedUserIds.push(action.userId);
+      newState[action.songId].num_favorites += 1;
       return newState;
     case REMOVE_FAVORITE:
       newState = Object.assign(state);
       newState[action.songId].favoritedUserIds = newState[action.songId].favoritedUserIds.filter(id => id !== action.userId);
+      newState[action.songId].num_favorites -= 1;
       return newState;
     case RECEIVE_COMMENT:
       newState = Object.assign(state);

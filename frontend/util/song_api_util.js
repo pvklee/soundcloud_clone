@@ -63,3 +63,11 @@ export const updateSongArt = ({formData, songId}) => (
     processData: false
   })
 )
+
+export const markPlayForSong = songId => (
+  $.ajax({
+    url: `api/songs/${songId}`,
+    method: 'PATCH',
+    data: {markPlay: true}
+  })
+)
