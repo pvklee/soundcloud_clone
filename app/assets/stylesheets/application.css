@@ -66,6 +66,7 @@ body{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 300px;
 }
 .search-bar-list{
   position: absolute;
@@ -80,17 +81,30 @@ body{
   flex-direction: column;
   justify-content: center;
   height: 30px;
+  width: 100%;
   padding: 0 3px;
+  background-color: black;
   border: 1px solid gray;
+}
+.search-bar-input-form{
+  display: flex;
 }
 .search-bar-input{
   background-color: gray;
   padding: 3px;
-  width: 300px;
+  width: 250px;
   border-radius: 3px;
+  transition: background-color .2s;
   margin: 0 5px;
 }
 
+.search-bar-input:focus{
+  background-color: rgb(179, 179, 179);
+}
+
+.search-bar-submit{
+  width: 50px;
+}
 .main{
   width: 1150px;
   background-color:white;

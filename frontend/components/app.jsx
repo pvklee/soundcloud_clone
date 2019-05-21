@@ -9,6 +9,7 @@ import NavbarContainer from './navbar/navbar_container'
 import ModalContainer from './modal/modal_container'
 import UserProfileContainer from './user_profile/user_profile_container'
 import SongDetailContainer from './shared_song_index/song_detail_container'
+import SearchIndexContainer from './search/search_index_container'
 // import Logout from './'
 
 const App = () => (
@@ -24,6 +25,7 @@ const App = () => (
       <ProtectedRoute path="/upload" component={SongFormContainer} />
       <Route path="/users/:userId" component={UserProfileContainer} />
       <Route path="/songs/:songId" component={SongDetailContainer} />
+      <Route path="/search" component={SearchIndexContainer} />
       {/* <AuthRoute path="/logout" component={Logout} /> */}
     </main>
     <footer>

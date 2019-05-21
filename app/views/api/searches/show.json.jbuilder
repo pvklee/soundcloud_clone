@@ -1,0 +1,1 @@
+json.extract! @search, :id, :user_id, :query, :suggestion_type, :suggestion_id

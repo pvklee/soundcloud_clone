@@ -1,48 +1,92 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
-export default class SearchBar extends React.Component {
+class SearchBar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      input: ''
+      input: '',
+      focus: false,
+      mouseOnSuggestion: false
     }
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClickSuggestion = this.handleClickSuggestion.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   handleInput(e){
     const input = e.target.value;
     this.setState({input: input});
-    // this.props.fetchUserSearchIds(input);
-    this.props.fetchSongSearchIds(input);
+    this.props.fetchSearchSuggestions(input);
   }
 
   handleSubmit(e){
     e.preventDefault();
+    const query = this.state.input;
+    if (!query) return;
+    const search = {query: query, user_id: this.props.currentUserId};
+    this.props.createSearchByCurrentUser(search)
+      .then(() => this.props.history.push(`/search/?q=${query}`));
+  }
+
+  handleClickSuggestion(e){
+    e.preventDefault();
+    const suggestion = {type: e.target.getAttribute('data-type'), id: parseInt(e.target.getAttribute('data-id'))};
+    this.setState({input: e.target.innerText, focus: false});
+    const query = e.target.innerText;
+    const search = {query: query, suggestion_type: suggestion.type, suggestion_id: suggestion.id, user_id: this.props.currentUserId};
+    this.props.createSearchByCurrentUser(search)
+      .then(() => this.props.history.push(`/search/?q=${query}`));
+  }
+
+  handleFocus(){
+    this.setState({focus: true});
+  }
+
+  handleBlur(){
+    if(!this.state.mouseOnSuggestion) this.setState({focus: false});
+  }
+
+  handleMouseEnter(){
+    this.setState({mouseOnSuggestion: true})
+  }
+
+  handleMouseLeave(){
+    this.setState({mouseOnSuggestion: false})
   }
 
   render(){
-    const {songs} = this.props;
-    const searchBarList = this.props.songSearchIds ? this.props.songSearchIds.map(id => (
-      <div className="search-bar-list-item" key={`songsearch`+id}><Link to={`/songs/${id}`}>{songs[id].title}</Link></div>
-    )) : null
+    const {songs, users} = this.props;
+    const searchBarList = (this.state.focus && this.props.searchSuggestionIds) ? this.props.searchSuggestionIds.map(suggestion => {
+      const {type, id} = suggestion;
+      const suggestionText = (type == 'user') ? users[id].username : songs[id].title;
+      return <button type="button" className="search-bar-list-item" data-type={suggestion.type} data-id={suggestion.id} key={`search-suggestion`+suggestion.type+suggestion.id} onClick={this.handleClickSuggestion}>{suggestionText}</button>
+    }) : null
 
     return(
       <div className="search-bar">
-        <form>
+        
+        <form className="search-bar-input-form">
           <input
             className="search-bar-input"
             type="text"
             value={this.state.input}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
             onChange={this.handleInput}
           />
-
+          <button type="submit" className="search-bar-submit" onClick={this.handleSubmit}>Submit</button>
+          <div className="search-bar-list" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} >
+            {searchBarList}
+          </div>
         </form>
-        <div className="search-bar-list">
-          {searchBarList}
-        </div>
       </div>
     )
   }
 }
+
+export default withRouter(SearchBar)

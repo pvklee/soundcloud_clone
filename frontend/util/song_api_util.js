@@ -71,11 +71,3 @@ export const markPlayForSong = songId => (
     data: {markPlay: true}
   })
 )
-
-export const fetchSongSearchIds = query => (
-  $.ajax({
-    url: `api/songs`,
-    method: 'GET',
-    data: {query}
-  })
-)

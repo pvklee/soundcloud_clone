@@ -1,18 +1,18 @@
 import {connect} from 'react-redux'
 import SearchBar from './search_bar'
-// import {fetchUserSearchIds} from '../../actions/user_actions'
-import {fetchSongSearchIds} from '../../actions/song_actions'
+import {fetchSearchSuggestions, createSearchByCurrentUser} from '../../actions/search_actions'
 
 
 const mapStateToProps = state => ({
-  userSearchIds: state.ui.userSearchIds,
-  songSearchIds: state.ui.songSearchIds,
-  songs: state.entities.songs
+  searchSuggestionIds: state.ui.searchSuggestionIds,
+  songs: state.entities.songs,
+  users: state.entities.users,
+  currentUserId: state.session.currentUserId
 })
 
 const mapDispatchToProps = dispatch => ({
-  // fetchUserSearchIds: query => dispatch(fetchUserSearchIds(query)),
-  fetchSongSearchIds: query => dispatch(fetchSongSearchIds(query))
+  fetchSearchSuggestions: query => dispatch(fetchSearchSuggestions(query)),
+  createSearchByCurrentUser: search => dispatch(createSearchByCurrentUser(search))
 })
 
 export default connect(
