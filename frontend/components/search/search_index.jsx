@@ -1,5 +1,6 @@
 import React from 'react'
 import SongsIndexItemContainer from '../shared_song_index/songs_index_item_container'
+import UsersIndexItemContainer from '../shared_user_index/users_index_item_container'
 export default class SearchIndex extends React.Component {
   componentDidMount(){
     const {query, fetchSearchResults} = this.props;
@@ -18,8 +19,16 @@ export default class SearchIndex extends React.Component {
     if (!searchResultIds) {return null};
 
     const searchList = searchResultIds.map(result => {
-      const song = songs[result.id];
-      return <SongsIndexItemContainer song={song} key={`search-result`+result.type+result.id} />
+      const {id, type} = result;
+      switch(type){
+        case 'song':
+          const song = songs[id];
+          return <SongsIndexItemContainer song={song} key={`search-result-song`+id} />
+        case 'user':
+          const user = users[id];
+          return <UsersIndexItemContainer user={user} key={`search-result-user`+id} />
+      }
+
     })
 
     return(

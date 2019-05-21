@@ -28,6 +28,7 @@ class SearchBar extends React.Component {
     e.preventDefault();
     const query = this.state.input;
     if (!query) return;
+    this.setState({focus: false});
     const search = {query: query, user_id: this.props.currentUserId};
     this.props.createSearchByCurrentUser(search)
       .then(() => this.props.history.push(`/search/?q=${query}`));
@@ -61,11 +62,36 @@ class SearchBar extends React.Component {
 
   render(){
     const {songs, users} = this.props;
-    const searchBarList = (this.state.focus && this.props.searchSuggestionIds) ? this.props.searchSuggestionIds.map(suggestion => {
-      const {type, id} = suggestion;
-      const suggestionText = (type == 'user') ? users[id].username : songs[id].title;
-      return <button type="button" className="search-bar-list-item" data-type={suggestion.type} data-id={suggestion.id} key={`search-suggestion`+suggestion.type+suggestion.id} onClick={this.handleClickSuggestion}>{suggestionText}</button>
-    }) : null
+    let searchBarList;
+    if(this.state.focus && this.state.input){
+      searchBarList = [
+        <button
+            type="button"
+            className="search-bar-list-item search-bar-list-item-main"
+            key={`search-suggestion`}
+            onClick={this.handleSubmit}>
+          {`Search for "${this.state.input}"`}
+        </button>
+      ];
+      if (this.props.searchSuggestionIds) {
+        this.props.searchSuggestionIds.forEach(suggestion => {
+          const {type, id} = suggestion;
+          const suggestionText = (type == 'user') ? users[id].username : songs[id].title;
+          searchBarList.push(
+            <button
+                type="button"
+                className="search-bar-list-item"
+                data-type={suggestion.type}
+                data-id={suggestion.id}
+                key={`search-suggestion`+suggestion.type+suggestion.id}
+                onClick={this.handleClickSuggestion}>
+              {suggestionText}
+            </button>
+          )
+        })
+      }
+    }
+
 
     return(
       <div className="search-bar">

@@ -85,7 +85,14 @@ body{
   padding: 0 3px;
   background-color: black;
   border: 1px solid gray;
+  cursor: pointer;
 }
+
+.search-bar-list-item-main{
+  background-color: rgb(65, 65, 65);
+  border: 1px solid gray;
+}
+
 .search-bar-input-form{
   display: flex;
 }
@@ -104,6 +111,7 @@ body{
 
 .search-bar-submit{
   width: 50px;
+  cursor: pointer;
 }
 .main{
   width: 1150px;
