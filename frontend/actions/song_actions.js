@@ -89,3 +89,8 @@ export const markPlayForSong = songId => dispatch => (
   APIUtil.markPlayForSong(songId)
     .then(song => dispatch(receiveSong(song)))
 )
+
+export const fetchFavoriteSongsOfUser = userId => dispatch => (
+  APIUtil.fetchFavoriteSongsOfUser(userId)
+    .then(songs => dispatch(receiveSongs(songs)))
+)

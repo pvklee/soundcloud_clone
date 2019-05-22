@@ -119,14 +119,14 @@ export default class AudioPlayer extends React.Component {
   }
 
   markPlay(){
-    this.props.markPlayForSong(this.props.songId);
     this.setState({playMarked: true});
+    this.props.markPlayForSong(this.props.songId);
   }
 
   markListen(){
-    //TODO
-    // this.props.markListenForSong();
     this.setState({listenMarked: true});
+    const listen = {song_id: this.props.songId, user_id: this.props.currentUserId}
+    this.props.createListen(listen);
   }
 
   render(){

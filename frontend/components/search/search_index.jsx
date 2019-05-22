@@ -23,9 +23,11 @@ export default class SearchIndex extends React.Component {
       switch(type){
         case 'song':
           const song = songs[id];
+          if (!song) return null;
           return <SongsIndexItemContainer song={song} key={`search-result-song`+id} />
         case 'user':
           const user = users[id];
+          if (!user) return null;
           return <UsersIndexItemContainer user={user} key={`search-result-user`+id} />
       }
 

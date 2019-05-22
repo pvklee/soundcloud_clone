@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     resources :favorites, only: [:index]
     resources :comments, only: [:index, :create, :destroy, :show]
     resources :searches, only: [:index, :create]
+    resources :song_listens, only: [:index, :create]
   end
 end

@@ -71,3 +71,11 @@ export const markPlayForSong = songId => (
     data: {markPlay: true}
   })
 )
+
+export const fetchFavoriteSongsOfUser = favoriteSongsFromUserId => {
+  return $.ajax({
+    url: 'api/songs',
+    method: 'GET',
+    data: {favoriteSongsFromUserId}
+  })
+}

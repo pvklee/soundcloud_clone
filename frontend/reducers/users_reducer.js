@@ -7,6 +7,7 @@ import merge from 'lodash/merge'
 const usersReducer = (state = {}, action) => {
   Object.freeze(state);
   let newState;
+  let newUser;
   switch(action.type){
     case RECEIVE_CURRENT_USER:
       return merge({}, state, {[action.user.id]: action.user}); 
@@ -15,7 +16,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_SONG:
       return merge({}, state, {[action.artist.id]: action.artist}); 
     case REMOVE_SONG:
-      newState = Object.assign(state);
+      newState = merge({}, state);
       newState[action.artistId].createdSongIds = newState[action.artistId].createdSongIds.filter(id => id !== action.songId);
       return newState;
     case RECEIVE_USER:
@@ -23,16 +24,16 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_USERS:
       return merge({}, state, action.users);
     case RECEIVE_FAVORITE:
-      newState = Object.assign({}, state);
+      newState = merge({}, state);
       newState[action.userId].favoriteSongIds.push(action.songId);
       return newState;
     case REMOVE_FAVORITE:
-      newState = Object.assign(state);
+      newState = merge({}, state);
       newState[action.userId].favoriteSongIds = newState[action.userId].favoriteSongIds.filter(id => id !== action.songId);
       return newState;
     case RECEIVE_SEARCH_SUGGESTIONS:
     case RECEIVE_SEARCH_RESULTS:
-      return merge({}, state, action.users); 
+      return merge({}, state, action.users);  
     default:
       return state;
   }

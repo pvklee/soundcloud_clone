@@ -1,5 +1,6 @@
 class Api::SearchesController < ApplicationController
   def index
+
     @searchSuggestionIds = []
     @searchResultIds = []
     @songs
@@ -10,7 +11,7 @@ class Api::SearchesController < ApplicationController
       @users = User.all.where('username ILIKE ?', query)
       songSuggestionIds = @songs.map {|song| {type: 'song', id: song.id}}
       userSuggestionIds = @users.map {|user| {type: 'user', id: user.id}}
-      @searchSuggestionIds = songSuggestionIds + userSuggestionIds
+      @searchSuggestionIds = userSuggestionIds + songSuggestionIds
     end
 
     if params[:queryForResults] && (params[:queryForResults] != "")
@@ -19,7 +20,7 @@ class Api::SearchesController < ApplicationController
       @users = User.all.where('username ILIKE ?', query)
       songResultIds = @songs.map {|song| {type: 'song', id: song.id}}
       userResultIds = @users.map {|user| {type: 'user', id: user.id}}
-      @searchResultIds = songResultIds + userResultIds
+      @searchResultIds = userResultIds + songResultIds
     end
   end
 

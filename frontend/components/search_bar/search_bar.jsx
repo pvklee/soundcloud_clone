@@ -20,7 +20,7 @@ class SearchBar extends React.Component {
 
   handleInput(e){
     const input = e.target.value;
-    this.setState({input: input});
+    this.setState({input: input, focus: true});
     this.props.fetchSearchSuggestions(input);
   }
 
@@ -105,11 +105,16 @@ class SearchBar extends React.Component {
             onBlur={this.handleBlur}
             onChange={this.handleInput}
           />
-          <button type="submit" className="search-bar-submit" onClick={this.handleSubmit}>Submit</button>
-          <div className="search-bar-list" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} >
+          <button
+              type="submit"
+              className="search-bar-submit"
+              onClick={this.handleSubmit}>
+            <i className="fas fa-search"/>
+          </button>
+        </form>
+        <div className="search-bar-list" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} >
             {searchBarList}
           </div>
-        </form>
       </div>
     )
   }

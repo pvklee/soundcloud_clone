@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :favorites, foreign_key: :user_id
   has_many :favorite_songs, through: :favorites, source: :song
   has_many :comments, foreign_key: :user_id
+  has_many :searchs, foreign_key: :user_id
+  has_many :listens, foreign_key: :user_id
+  has_many :listened_songs, through: :listens, source: :song
 
   has_one_attached :profilePictureFile
 

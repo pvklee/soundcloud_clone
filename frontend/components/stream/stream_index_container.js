@@ -1,10 +1,11 @@
 import {connect} from 'react-redux'
 import {fetchSongs} from '../../actions/song_actions'
 import {selectAllSongs} from '../../reducers/selectors'
-import Stream from './stream'
+import StreamIndex from './stream_index'
 
 const mapStateToProps = state => ({
-  songs: selectAllSongs(state)
+  songs: state.entities.songs,
+  filteredSongIds: state.ui.filteredSongIds
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -14,4 +15,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Stream)
+)(StreamIndex)
