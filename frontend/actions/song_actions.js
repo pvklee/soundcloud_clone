@@ -1,4 +1,5 @@
 import * as APIUtil from '../util/song_api_util'
+import { receiveListens } from './listen_actions';
 
 export const RECEIVE_SONGS = "RECEIVE_SONGS"
 export const RECEIVE_SONG = "RECEIVE_SONG"
@@ -40,7 +41,6 @@ const removeFavorite = ({userId, songId}) => {
     songId
   })
 }
-
 
 
 //async
@@ -93,4 +93,12 @@ export const markPlayForSong = songId => dispatch => (
 export const fetchFavoriteSongsOfUser = userId => dispatch => (
   APIUtil.fetchFavoriteSongsOfUser(userId)
     .then(songs => dispatch(receiveSongs(songs)))
+)
+
+export const fetchListenedSongsOfUser = userId => dispatch => (
+  APIUtil.fetchListenedSongsOfUser(userId)
+    .then(songs => {
+      dispatch(receiveSongs(songs));
+      dispatch(receiveListens(songs));
+    })
 )

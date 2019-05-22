@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import Library from './library'
-import {fetchFavoriteSongsOfUser} from '../../actions/song_actions'
+import {fetchFavoriteSongsOfUser, fetchListenedSongsOfUser} from '../../actions/song_actions'
 
 const mapStateToProps = state => ({
   currentUserId: state.session.currentUserId,
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchFavoriteSongsOfUser: userId => dispatch(fetchFavoriteSongsOfUser(userId))
+  fetchFavoriteSongsOfUser: userId => dispatch(fetchFavoriteSongsOfUser(userId)),
+  fetchListenedSongsOfUser: userId => dispatch(fetchListenedSongsOfUser(userId))
 })
 
 export default connect(

@@ -5,14 +5,14 @@ class User < ApplicationRecord
   validates :username, :email, :session_token, uniqueness: true
   validates :password, length: {minimum: 6}, allow_nil: true
 
-  has_many :songs, foreign_key: :artist_id, dependent: :destroy
+  has_many :created_songs, class_name: :Song, foreign_key: :artist_id, dependent: :destroy
 
   has_many :favorites, foreign_key: :user_id
   has_many :favorite_songs, through: :favorites, source: :song
   has_many :comments, foreign_key: :user_id
-  has_many :searchs, foreign_key: :user_id
-  has_many :listens, foreign_key: :user_id
-  has_many :listened_songs, through: :listens, source: :song
+  has_many :searches, foreign_key: :user_id
+  has_many :song_listens, foreign_key: :user_id
+  has_many :listened_songs, through: :song_listens, source: :song
 
   has_one_attached :profilePictureFile
 

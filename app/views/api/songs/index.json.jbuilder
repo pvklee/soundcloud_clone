@@ -14,5 +14,15 @@
   end
 end
 
+if @song_listens
+  @song_listens.each do |song_listen|
+    json.listens do
+      json.set! song_listen.id do
+        json.partial! 'api/song_listens/song_listen', song_listen: song_listen
+      end
+    end
+  end
+end
+
 json.filteredSongIds @filteredSongIds
 json.songSearchIds @songSearchIds

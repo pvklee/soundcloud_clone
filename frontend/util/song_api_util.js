@@ -79,3 +79,11 @@ export const fetchFavoriteSongsOfUser = favoriteSongsFromUserId => {
     data: {favoriteSongsFromUserId}
   })
 }
+
+export const fetchListenedSongsOfUser = listenedSongsFromUserId => {
+  return $.ajax({
+    url: 'api/songs',
+    method: 'GET',
+    data: {listenedSongsFromUserId}
+  })
+}

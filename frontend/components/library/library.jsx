@@ -1,20 +1,19 @@
 import React from 'react'
 import {Route, NavLink} from 'react-router-dom'
 import FavoritesIndexContainer from './favorites_index_container'
+import HistoryIndexContainer from './history_index_container'
 
 export default class Library extends React.Component {
   componentDidMount(){
-    const {currentUserId, fetchFavoriteSongsOfUser} = this.props;
+    const {currentUserId, fetchFavoriteSongsOfUser, fetchListenedSongsOfUser} = this.props;
     fetchFavoriteSongsOfUser(currentUserId);
+    fetchListenedSongsOfUser(currentUserId);
   }
   render(){
     const {currentUser, currentUserId, songs} = this.props;
     return(
       <div>
         <div>
-          <NavLink to="/you/library" className="nav-button" activeClassName="nav-button-active">
-              Overview
-          </NavLink>
           <NavLink to="/you/favorites" className="nav-button" activeClassName="nav-button-active">
               Favorites
           </NavLink>
@@ -27,6 +26,7 @@ export default class Library extends React.Component {
         </div>
         <div>
           <Route path="/you/favorites" component={FavoritesIndexContainer}/>
+          <Route path="/you/history" component={HistoryIndexContainer}/>
         </div>
       </div>
     )

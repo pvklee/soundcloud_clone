@@ -51,7 +51,7 @@ class Navbar extends React.Component {
         <NavLink to="/stream" className="nav-button" activeClassName="nav-button-active">
             Stream
         </NavLink>
-        <NavLink to="/you/library" className="nav-button" isActive={(match, location) => location.pathname.startsWith('/you')} activeClassName="nav-button-active">
+        <NavLink to="/you/favorites" className="nav-button" isActive={(match, location) => location.pathname.startsWith('/you')} activeClassName="nav-button-active">
           
             Library
         </NavLink>

@@ -21,7 +21,7 @@ const App = () => (
     </header>
     <main className="main">
       <Route path="/stream" component={StreamIndexContainer}/>
-      <Route path="/you" component={LibraryContainer}/>
+      <ProtectedRoute path="/you" component={LibraryContainer}/>
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
       <ProtectedRoute path="/upload" component={SongFormContainer} />

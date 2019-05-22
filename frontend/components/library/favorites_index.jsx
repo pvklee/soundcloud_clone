@@ -3,8 +3,9 @@ import SongsIndexItemContainer from '../shared_song_index/songs_index_item_conta
 
 export default class FavoritesIndex extends React.Component{
   render(){
-    const {songs, favoriteSongIds} = this.props;
-    const favoriteSongsList = favoriteSongIds.map(id => (songs[id] ? <SongsIndexItemContainer song={songs[id]} key={`favorite-song`+id} /> : null))
+    const {songs, favoriteSongs} = this.props;
+
+    const favoriteSongsList = favoriteSongs.map(song => (song ? <SongsIndexItemContainer song={song} key={`favorite-song`+song.id} /> : null))
     return(
       <div>{favoriteSongsList}</div>
     )

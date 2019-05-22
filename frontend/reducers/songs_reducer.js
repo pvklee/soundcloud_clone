@@ -29,6 +29,7 @@ const songsReducer = (state = {}, action) => {
     case RECEIVE_COMMENT:
       newState = merge({},state);
       newState[action.songId].commentIds.push(action.comment.id);
+      return newState;
     case RECEIVE_SEARCH_SUGGESTIONS:
     case RECEIVE_SEARCH_RESULTS:
       return merge({}, state, action.songs)

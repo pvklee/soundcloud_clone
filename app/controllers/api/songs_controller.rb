@@ -4,6 +4,10 @@ class Api::SongsController < ApplicationController
       @songs = Song.where('songs.artist_id = ?', params[:userId])
     elsif params[:favoriteSongsFromUserId]
       @songs = User.find(params[:favoriteSongsFromUserId]).favorite_songs
+    elsif params[:listenedSongsFromUserId]
+      user = User.find(params[:listenedSongsFromUserId])
+      @songs = user.listened_songs
+      @song_listens = user.song_listens.order(id: :desc)
     else
       @songs = Song.favorites_descending.includes(:artist)
     end

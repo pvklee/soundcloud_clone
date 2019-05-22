@@ -4,7 +4,6 @@ class Api::SongListensController < ApplicationController
 
   def create
     @song_listen = SongListen.new(listen_params)
-    byebug
     if @song_listen.save
       render 'show'
     else

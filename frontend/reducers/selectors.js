@@ -7,9 +7,13 @@ export const selectAllSongs = state => (
 )
 
 export const selectSongsFromSongIds = (state, songIds) => {
-  return songIds.map(id => state.entities.songs[id])
+  return songIds.map(id => state.entities.songs[id]).reverse();
 }
 
 export const selectCommentsFromCommentIds = (state, commentIds) => {
   return commentIds.map(id => state.entities.comments[id]).reverse();
+}
+
+export const selectListensFromListenIds = (state, listenIds) => {
+  return listenIds.map(id => state.entities.listens[id]).reverse();
 }

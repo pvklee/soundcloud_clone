@@ -32,8 +32,8 @@ class Song < ApplicationRecord
   has_many :favorited_users, through: :favorites, source: :user
   has_many :comments, foreign_key: :song_id
   has_many :commented_users, through: :comments, source: :user
-  has_many :listens, foreign_key: :song_id
-  has_many :listened_users, through: :listens, source: :user
+  has_many :song_listens, foreign_key: :song_id
+  has_many :listened_users, through: :song_listens, source: :user
 
   after_initialize :ensure_play_count
 
