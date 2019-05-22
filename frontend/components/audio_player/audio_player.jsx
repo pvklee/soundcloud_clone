@@ -125,7 +125,9 @@ export default class AudioPlayer extends React.Component {
 
   markListen(){
     this.setState({listenMarked: true});
-    const listen = {song_id: this.props.songId, user_id: this.props.currentUserId}
+    const {songId, currentUser} = this.props;
+    const currentUserId = currentUser ? currentUser.id : null;
+    const listen = {song_id: songId, user_id: currentUserId}
     this.props.createListen(listen);
   }
 

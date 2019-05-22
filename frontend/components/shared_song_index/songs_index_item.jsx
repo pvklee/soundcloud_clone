@@ -126,7 +126,7 @@ class SongsIndexItem extends React.Component {
               playing={this.state.playing}
               songId={song.id}
               song={song}
-              currentUserId={currentUser.id}
+              currentUser={currentUser}
               handleTogglePlay={this.handleTogglePlay}
               handlePosChange={this.handlePosChange}
               handleLoadingDone={this.handleLoadingDone}
