@@ -8,6 +8,8 @@ class Api::SongsController < ApplicationController
       user = User.find(params[:listenedSongsFromUserId])
       @songs = user.listened_songs
       @song_listens = user.song_listens.order(id: :desc)
+    elsif params[:stream]
+      @songs = current_user.users_followed.created_songs
     else
       @songs = Song.favorites_descending.includes(:artist)
     end

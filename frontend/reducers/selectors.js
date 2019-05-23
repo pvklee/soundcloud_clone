@@ -17,3 +17,9 @@ export const selectCommentsFromCommentIds = (state, commentIds) => {
 export const selectListensFromListenIds = (state, listenIds) => {
   return listenIds.map(id => state.entities.listens[id]).reverse();
 }
+
+export const selectFollowedUsersFromUser = (state, usersFollowing) => {
+  if (!usersFollowing) return [];
+  const followingIds = Object.keys(usersFollowing);
+  return followingIds.map(id => state.entities.users[id]);
+}

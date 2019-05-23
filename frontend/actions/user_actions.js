@@ -30,3 +30,13 @@ export const updateUserProfilePicture = user => dispatch => (
   APIUtil.updateUserProfilePicture(user)
     .then(user=> dispatch(receiveUser(user)))
 )
+
+export const followUser = userId => dispatch => (
+  APIUtil.followUser(userId)
+    .then(user => dispatch(receiveUser(user)))
+)
+
+export const unfollowUser = userId => dispatch => (
+  APIUtil.unfollowUser(userId)
+    .then(user => dispatch(receiveUser(user)))
+)

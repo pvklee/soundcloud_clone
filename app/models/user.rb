@@ -14,6 +14,12 @@ class User < ApplicationRecord
   has_many :song_listens, foreign_key: :user_id
   has_many :listened_songs, through: :song_listens, source: :song
 
+  has_many :received_follows, class_name: :Follow, foreign_key: :following_id
+  has_many :given_follows, class_name: :Follow, foreign_key: :follower_id
+
+  has_many :users_followed, through: :given_follows, source: :following
+  has_many :followers, through: :received_follows, source: :follower
+
   has_one_attached :profilePictureFile
 
   after_initialize :ensure_session_token

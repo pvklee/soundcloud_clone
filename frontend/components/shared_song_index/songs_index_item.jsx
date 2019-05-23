@@ -28,9 +28,6 @@ class SongsIndexItem extends React.Component {
     if (this.props.songDetail) this.props.setCurrentSongTime(0);
   }
 
-  componentWillUnmount(){
-  }
-
   setToggleFavoriteTypeState(){
     const {currentUser, song} = this.props;
     if (!currentUser) return;

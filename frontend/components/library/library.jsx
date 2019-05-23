@@ -2,6 +2,7 @@ import React from 'react'
 import {Route, NavLink} from 'react-router-dom'
 import FavoritesIndexContainer from './favorites_index_container'
 import HistoryIndexContainer from './history_index_container'
+import FollowingIndexContainer from './following_index_container'
 
 export default class Library extends React.Component {
   componentDidMount(){
@@ -27,6 +28,7 @@ export default class Library extends React.Component {
         <div>
           <Route path="/you/favorites" component={FavoritesIndexContainer}/>
           <Route path="/you/history" component={HistoryIndexContainer}/>
+          <Route path="/you/following" component={FollowingIndexContainer}/>
         </div>
       </div>
     )

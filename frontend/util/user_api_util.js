@@ -22,3 +22,17 @@ export const updateUserProfilePicture = ({formData, userId}) => (
     processData: false
   })
 )
+
+export const followUser = (followingId) => (
+  $.ajax({
+    url: `api/users/${followingId}/follow`,
+    method: 'POST'
+  })
+)
+
+export const unfollowUser = (followingId) => (
+  $.ajax({
+    url: `api/users/${followingId}/unfollow`,
+    method: 'POST'
+  })
+)

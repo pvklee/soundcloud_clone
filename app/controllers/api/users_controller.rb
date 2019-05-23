@@ -24,11 +24,29 @@ class Api::UsersController < ApplicationController
     elsif user_params
       @user.update(user_params)
     else
-      render json: @user_params.errors.full_messages, status: 422
+      render json: @user.errors.full_messages, status: 422
     end
 
     render "api/users/show"
   end
+
+  def follow
+    @user = current_user
+    if @user.given_follows.create(following_id: params[:id])
+      render "show"
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end
+
+  def unfollow
+    @user = current_user
+    if @user.given_follows.find_by(following_id: params[:id]).destroy
+      render "show"
+    else
+      render json: @user.errors.full_messages, status: 422
+    end
+  end 
 
   private
 
