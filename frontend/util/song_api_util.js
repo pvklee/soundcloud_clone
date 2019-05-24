@@ -6,6 +6,14 @@ export const fetchSongs = (filters) => {
   })
 }
 
+export const fetchSongsFromStream = (filters) => {
+  return $.ajax({
+    url: 'api/songs',
+    method: 'GET',
+    data: {stream: true},
+  })
+}
+
 export const fetchSong = (id) => {
   return $.ajax({
     url: `api/songs/${id}`,

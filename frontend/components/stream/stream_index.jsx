@@ -3,7 +3,7 @@ import SongsIndexItemContainer from '../shared_song_index/songs_index_item_conta
 
 export default class StreamIndex extends React.Component {
   componentDidMount(){
-    this.props.fetchSongs();
+    this.props.fetchSongsFromStream();
   }
   render(){
     const {songs, filteredSongIds} = this.props;

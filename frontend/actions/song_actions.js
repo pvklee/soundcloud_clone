@@ -50,6 +50,11 @@ export const fetchSongs = bounds => dispatch => (
     .then(songs => dispatch(receiveSongs(songs)))
 )
 
+export const fetchSongsFromStream = bounds => dispatch => (
+  APIUtil.fetchSongsFromStream(bounds)
+    .then(songs => dispatch(receiveSongs(songs)))
+)
+
 export const fetchSong = id => dispatch => (
   APIUtil.fetchSong(id)
     .then(song => dispatch(receiveSong(song)))

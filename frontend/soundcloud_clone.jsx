@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const preloadedState = {
     ui: {
-      genres: window.GENRES
+      filters: {
+        genres: window.GENRES
+      }
     }
   };
   delete window.GENRES;
@@ -20,9 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         users: { [window.currentUser.id]: window.currentUser }
       },
       session: { currentUserId: window.currentUser.id },
-      ui: {
-        genres: window.GENRES
-      }
     };
     merge(preloadedState, additionToPreloadedState);
     delete window.currentUser;
