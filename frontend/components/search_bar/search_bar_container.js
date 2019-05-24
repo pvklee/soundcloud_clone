@@ -4,7 +4,7 @@ import {fetchSearchSuggestions, createSearchByCurrentUser} from '../../actions/s
 
 
 const mapStateToProps = state => ({
-  searchSuggestionIds: state.ui.searchSuggestionIds,
+  searchSuggestionIds: state.ui.filters.searchSuggestionIds,
   songs: state.entities.songs,
   users: state.entities.users,
   currentUserId: state.session.currentUserId

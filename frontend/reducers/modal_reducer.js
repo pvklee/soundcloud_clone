@@ -1,4 +1,4 @@
-import {OPEN_SESSION_FORM_MODAL, CLOSE_SESSION_FORM_MODAL} from '../actions/ui_actions'
+import {OPEN_LOGIN_FORM_MODAL, OPEN_SIGNUP_FORM_MODAL, CLOSE_MODAL} from '../actions/modal_actions'
 
 import merge from 'lodash/merge'
 
@@ -9,9 +9,11 @@ const initialState = {
 export default (state = initialState, action) => {
   Object.freeze(state);
   switch(action.type){
-    case OPEN_SESSION_FORM_MODAL:
-      return merge({}, state, {modalState: 'SESSION_FORM'})
-    case CLOSE_SESSION_FORM_MODAL:
+    case OPEN_LOGIN_FORM_MODAL:
+      return merge({}, state, {modalState: 'LOGIN_FORM'})
+    case OPEN_SIGNUP_FORM_MODAL:
+      return merge({}, state, {modalState: 'SIGNUP_FORM'})
+    case CLOSE_MODAL:
       return merge({}, state, {modalState: 'NONE'})
     default:
       return state;

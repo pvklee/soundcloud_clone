@@ -1,4 +1,4 @@
-import {SET_CURRENT_SONG_TIME} from '../actions/ui_actions'
+import {SET_CURRENT_SONG_TIME} from '../actions/current_song_actions'
 
 import merge from 'lodash/merge'
 

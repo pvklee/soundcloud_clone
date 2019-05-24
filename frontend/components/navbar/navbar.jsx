@@ -6,11 +6,20 @@ class Navbar extends React.Component {
   constructor(props){
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
+    this.openSessionForm = this.openSessionForm.bind(this);
   }
 
   handleLogout(){
     this.props.logout()
       .then(()=>this.props.history.push('/logout'))
+  }
+
+  openSessionForm(type){
+    const {openLoginFormModal, openSignupFormModal} = this.props;
+    return (e) => {
+      e.preventDefault();
+      (type == 'login') ? openLoginFormModal() : openSignupFormModal();
+    }
   }
 
   render(){
@@ -33,10 +42,10 @@ class Navbar extends React.Component {
               <span className="header-greeting-text">Hello!</span>
             </div>
             <div className="nav-session-item">
-              <Link to='/login'><button className="session-button">Sign In</button></Link> 
+              <button className="session-button" onClick={this.openSessionForm('login')}>Sign In</button>
             </div>
             <div className="nav-session-item">
-              <Link to='/signup'><button className="session-button sign-up-button">Create Account</button></Link>
+              <button className="session-button sign-up-button" onClick={this.openSessionForm('signup')}>Create Account</button>
             </div>
           </div>
   

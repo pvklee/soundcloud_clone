@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {deleteSong, favoriteSong, unfavoriteSong} from '../../actions/song_actions'
-import {setCurrentSongTime} from '../../actions/ui_actions'
+import {setCurrentSongTime} from '../../actions/current_song_actions'
 import SongsIndexItem from './songs_index_item'
 
 const mapStateToProps = (state, {song}) => ({

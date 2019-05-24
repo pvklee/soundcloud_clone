@@ -1,6 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {Link} from 'react-router-dom'
 
 export default class SessionForm extends React.Component {
   constructor(props){
@@ -18,7 +16,7 @@ export default class SessionForm extends React.Component {
     e.preventDefault();
     const user = Object.assign({}, this.state)
     this.props.processForm(user)
-      .then(() => this.props.history.push('/'));
+      .then(() => this.props.closeModal());
   }
 
   update(prop){
@@ -33,35 +31,33 @@ export default class SessionForm extends React.Component {
     const errorMessages = errors.map(error => <li key={error}>{error}</li>);
 
     const sessionFormModal = (
-      <div className="session-form-modal">
+      <form className="session-form">
         <div>
           <ul>{errorMessages}</ul>
         </div>
-        <form className="session-form">
-          <input 
-            type='text'
-            value={this.state.username}
-            onChange={this.update('username')}
-            className='session-form-input'
-            placeholder='username' />
-          <br/>
-          <input 
-            type='text'
-            value={this.state.email}
-            onChange={this.update('email')}
-            className='session-form-input'
-            placeholder='email' />
-          <br/>
-          <input 
-            type='password'
-            value={this.state.password}
-            onChange={this.update('password')}
-            className='session-form-input'
-            placeholder='password' />
-          <br/>
-          <button className="session-form-button" onClick={this.handleSubmit}>{buttonValue}</button>
-        </form>
-      </div>
+        <input 
+          type='text'
+          value={this.state.username}
+          onChange={this.update('username')}
+          className='session-form-input'
+          placeholder='username' />
+        <br/>
+        <input 
+          type='text'
+          value={this.state.email}
+          onChange={this.update('email')}
+          className='session-form-input'
+          placeholder='email' />
+        <br/>
+        <input 
+          type='password'
+          value={this.state.password}
+          onChange={this.update('password')}
+          className='session-form-input'
+          placeholder='password' />
+        <br/>
+        <button className="session-form-button" onClick={this.handleSubmit}>{buttonValue}</button>
+      </form>
     );
     return sessionFormModal;
   }

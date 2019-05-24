@@ -154,17 +154,17 @@ body{
   }
 }
 
-.session-form-modal{
-  float: top;
+.modal-background {
   position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
   animation: 500ms ease-out 0s 1 forwards fadeIn;
 }
 
@@ -177,7 +177,7 @@ body{
   }
 }
 
-.session-form{
+.modal-child{
   display: flex;
   flex-direction: column;
   background-color: white;

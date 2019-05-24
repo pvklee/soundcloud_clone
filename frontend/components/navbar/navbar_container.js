@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {logout} from '../../actions/session_actions'
+import {openLoginFormModal, openSignupFormModal} from '../../actions/modal_actions'
 import Navbar from './navbar'
 
 const mapStateToProps = state => ({
@@ -7,6 +8,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  openLoginFormModal: () => dispatch(openLoginFormModal()),
+  openSignupFormModal: () => dispatch(openSignupFormModal()),
   logout: () => dispatch(logout())
 })
 
