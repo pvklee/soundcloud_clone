@@ -5,17 +5,18 @@ export default class SearchIndex extends React.Component {
   componentDidMount(){
     const {query, fetchSearchResults} = this.props;
     fetchSearchResults(query);
+    document.title = `Search results for "${query}"`
   }
 
   componentDidUpdate(prevProps){
     if(prevProps.query !== this.props.query){
       this.props.fetchSearchResults(this.props.query);
+      document.title = `Search results for "${query}"`
     }
   }
 
   render(){
     const {query, songs, users, searchResultIds} = this.props;
-    
     if (!searchResultIds) {return null};
 
     const searchList = searchResultIds.map(result => {
@@ -34,7 +35,12 @@ export default class SearchIndex extends React.Component {
     })
 
     return(
-      <div>{searchList}</div>
+      <div>
+        <div className="main-info-container">
+          <span>{`Search results for "${query}"`}</span>
+        </div>
+        {searchList}
+      </div>
     )
   }
 }

@@ -5,7 +5,7 @@ export default class UserProfile extends React.Component {
   constructor(props){
     super(props);
 
-    const following = this.props.currentUser.usersFollowing ? !! this.props.currentUser.usersFollowing[this.props.userId] : false;
+    const following = this.props.currentUser && this.props.currentUser.usersFollowing ? !! this.props.currentUser.usersFollowing[this.props.userId] : false;
     this.state = {
       following: following
     }
@@ -17,8 +17,15 @@ export default class UserProfile extends React.Component {
   }
 
   componentDidMount(){
-    this.props.fetchUser(this.props.userId);
-    this.props.fetchSongsFromUser(this.props.userId);
+    document.title = "Loading user...";
+    this.props.startLoading();
+    this.props.fetchUser(this.props.userId).then(()=>(
+      document.title = this.props.user.username
+    ));
+    this.props.fetchSongsFromUser(this.props.userId)
+      .then(()=>
+        this.props.stopLoading()
+      );
   }
 
   componentDidUpdate(prevProps){
@@ -62,10 +69,13 @@ export default class UserProfile extends React.Component {
     if (!user) return null;
 
     const changeProfilePictureButton = (user.id == currentUserId) ? (
-      <input
-        type="file"
-        onChange={this.onProfilePictureChange}
-      />
+      <label class="change-profile-picture-button">
+        Change Picture
+        <input
+          type="file"
+          onChange={this.onProfilePictureChange}
+        />
+      </label>
     ) : ''
 
     const followButtonText = this.state.following ? 'Following' : 'Follow';

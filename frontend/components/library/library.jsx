@@ -11,17 +11,16 @@ export default class Library extends React.Component {
     fetchListenedSongsOfUser(currentUserId);
   }
   render(){
-    const {currentUser, currentUserId, songs} = this.props;
     return(
       <div>
-        <div>
-          <NavLink to="/you/favorites" className="nav-button" activeClassName="nav-button-active">
+        <div className="library-nav-bar">
+          <NavLink to="/you/favorites" className="library-nav-button" activeClassName="library-nav-button-active">
               Favorites
           </NavLink>
-          <NavLink to="/you/history" className="nav-button" activeClassName="nav-button-active">
+          <NavLink to="/you/history" className="library-nav-button" activeClassName="library-nav-button-active">
               History
           </NavLink>
-          <NavLink to="/you/following" className="nav-button" activeClassName="nav-button-active">
+          <NavLink to="/you/following" className="library-nav-button" activeClassName="library-nav-button-active">
               Following
           </NavLink>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Switch, Link} from 'react-router-dom'
+import {Route, Switch, Link, Redirect} from 'react-router-dom'
 import {AuthRoute, ProtectedRoute} from '../util/route_util'
 import LoginFormContainer from './session_forms/login_form_container'
 import SignupFormContainer from './session_forms/signup_form_container'
@@ -11,16 +11,19 @@ import UserProfileContainer from './user_profile/user_profile_container'
 import SongDetailContainer from './shared_song_index/song_detail_container'
 import SearchIndexContainer from './search/search_index_container'
 import LibraryContainer from './library/library_container'
+import DiscoverIndexContainer from './discover/discover_index_container'
 // import Logout from './'
 
 const App = () => (
-  <div>
+  <div className="soundcloud-clone">
     <ModalContainer />
     <header className="header">
       <NavbarContainer />
     </header>
     <main className="main">
-      <Route path="/stream" component={StreamIndexContainer}/>
+      <Route exact path="/" component={() => <Redirect to="/discover" />}/>
+      <Route path="/discover" component={DiscoverIndexContainer} />
+      <ProtectedRoute path="/stream" component={StreamIndexContainer}/>
       <ProtectedRoute path="/you" component={LibraryContainer}/>
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />

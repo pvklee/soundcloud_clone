@@ -4,9 +4,14 @@ import {Link} from 'react-router-dom'
 export default class UsersIndexItem extends React.Component {
   constructor(props){
     super(props);
-    const following = this.props.currentUser.usersFollowing ? !! this.props.currentUser.usersFollowing[this.props.user.id] : false;
+    let followingState;
+    if(this.props.currentUser && this.props.currentUser.usersFollowedIds){
+      followingState = this.props.currentUser.usersFollowedIds.includes(this.props.user.id);
+    } else {
+      followingState = false;
+    }
     this.state = {
-      following: following
+      following: followingState
     }
     this.toggleFollow = this.toggleFollow.bind(this);
     this.setFollowUser = this.setFollowUser.bind(this);
@@ -19,9 +24,12 @@ export default class UsersIndexItem extends React.Component {
   }
 
   setFollowUser(){
-    const {user, followUser} = this.props;
-    followUser(user.id);
-    this.setState({following: true})
+    const {user, followUser, currentUser,openLoginFormModal} = this.props;
+    if(!currentUser) {openLoginFormModal();}
+    else{
+      followUser(user.id);
+      this.setState({following: true})
+    };
   }
 
   setUnfollowUser(){
@@ -33,15 +41,21 @@ export default class UsersIndexItem extends React.Component {
   render(){
     const {currentUser, user} = this.props;
 
-    const followButtonText = this.state.following ? 'Unfollow' : 'Follow';
+    const followButtonText = this.state.following ? 'Following' : 'Follow';
 
     return(
-      <div>
-      <Link to={`/users/${user.id}`}>
-        <img src={user.profilePictureUrl} className="user-profile-picture"/> 
-        <span>{user.username}</span>
-        <button onClick={this.toggleFollow}>{followButtonText}</button>
-      </Link>
+      <div className="user-index-item">
+        <div>
+          <Link to={`/users/${user.id}`}>
+            <img src={user.profilePictureUrl} className="user-profile-picture"/> 
+          </Link>
+        </div>
+        <div className="user-index-item-username-follow">
+          <Link to={`/users/${user.id}`}>
+            <span className="user-index-item-username">{user.username}</span>
+          </Link>
+          <button onClick={this.toggleFollow} className="toggle-follow-button">{followButtonText}</button>
+        </div>
       </div>
     )
   }  

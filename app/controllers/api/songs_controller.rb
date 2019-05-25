@@ -8,13 +8,15 @@ class Api::SongsController < ApplicationController
       user = User.find(params[:listenedSongsFromUserId])
       @songs = user.listened_songs
       @song_listens = user.song_listens.order(id: :desc)
-    # elsif params[:stream]
-    #   @songs = Song.joins(current_user.)where()
+    elsif params[:stream]
+      artistIds = current_user.users_followed.pluck(:id)
+      @songs = Song.where(artist_id: artistIds)
+      @filteredSongIds = @songs.pluck(:id)
     else
-      @songs = Song.favorites_descending.includes(:artist)
+      @songs = Song.includes(:artist)
+      @filteredSongIds = @songs.pluck(:id)
     end
 
-    @filteredSongIds = Song.allSongsByFavoritesCount
   end
 
   def create

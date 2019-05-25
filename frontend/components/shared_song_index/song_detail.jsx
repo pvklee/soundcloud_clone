@@ -39,7 +39,6 @@ class SongDetail extends React.Component {
 
     return(
       <div>
-        <img src={song.artUrl} className="song-art-detail"/>
         {changeSongArtButton}
         <SongIndexItemContainer song={song} songDetail={true}/>
         <CommentsIndexContainer songId={songId} commentIds={song.commentIds}/>

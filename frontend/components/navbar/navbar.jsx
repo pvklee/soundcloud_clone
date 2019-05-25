@@ -10,8 +10,7 @@ class Navbar extends React.Component {
   }
 
   handleLogout(){
-    this.props.logout()
-      .then(()=>this.props.history.push('/logout'))
+    this.props.logout();
   }
 
   openSessionForm(type){
@@ -51,10 +50,10 @@ class Navbar extends React.Component {
   
     return(
       <div className="navbar">
-        <Link to="/">
-          <div className="logo" />
+        <Link to="/discover">
+          <div className="logo">soundspace</div>
         </Link>
-        <NavLink exact to="/" className="nav-button" activeClassName="nav-button-active">
+        <NavLink exact to="/discover" className="nav-button" activeClassName="nav-button-active">
             Home
         </NavLink>
         <NavLink to="/stream" className="nav-button" activeClassName="nav-button-active">

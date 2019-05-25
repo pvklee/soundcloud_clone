@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   attr_reader :password
 
-  validates :username, :email, :password_digest, :session_token, presence: true
-  validates :username, :email, :session_token, uniqueness: true
+  validates :username, :password_digest, :session_token, presence: true
+  validates :username, :session_token, uniqueness: true
   validates :password, length: {minimum: 6}, allow_nil: true
 
   has_many :created_songs, class_name: :Song, foreign_key: :artist_id, dependent: :destroy

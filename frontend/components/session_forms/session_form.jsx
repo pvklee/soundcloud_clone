@@ -5,7 +5,6 @@ export default class SessionForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      email: '',
       password: ''
     }
     this.update = this.update.bind(this);
@@ -41,13 +40,6 @@ export default class SessionForm extends React.Component {
           onChange={this.update('username')}
           className='session-form-input'
           placeholder='username' />
-        <br/>
-        <input 
-          type='text'
-          value={this.state.email}
-          onChange={this.update('email')}
-          className='session-form-input'
-          placeholder='email' />
         <br/>
         <input 
           type='password'

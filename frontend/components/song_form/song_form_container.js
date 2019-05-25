@@ -4,7 +4,7 @@ import SongForm from './song_form'
 
 const mapStateToProps = (state) => ({
   artistId: state.session.currentUserId,
-  genres: state.ui.genres
+  genres: state.ui.filters.genres
 })
 
 const mapDispatchToProps = dispatch => ({

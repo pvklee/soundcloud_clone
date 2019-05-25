@@ -6,7 +6,7 @@ const mapStateToProps = (state, {location}) => ({
   query: new URLSearchParams(location.search).get('q'),
   songs: state.entities.songs,
   users: state.entities.users,
-  searchResultIds: state.ui.searchResultIds
+  searchResultIds: state.ui.filters.searchResultIds
 })
 
 const mapDispatchToProps = dispatch => ({

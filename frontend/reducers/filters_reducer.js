@@ -15,7 +15,9 @@ export default (state = initialState, action) => {
   let newState;
   switch(action.type){
     case RECEIVE_SONGS:
-      return merge({}, state, {filteredSongIds: action.filteredSongIds})
+      newState = merge({}, state, {filteredSongIds: []})
+      newState.filteredSongIds = action.filteredSongIds;
+      return newState;
     case RECEIVE_SEARCH_SUGGESTIONS:
       newState = merge({}, state, {searchSuggestionIds: []})
       newState.searchSuggestionIds = action.searchSuggestionIds;

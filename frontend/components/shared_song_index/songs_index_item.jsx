@@ -91,7 +91,7 @@ class SongsIndexItem extends React.Component {
     const audioPlayerOptions = {
       barWidth: 3,
       waveColor: "white",
-      progressColor: "red",
+      progressColor: "blue",
       height: 200,
       cursorWidth: 0,
       normalize: true
@@ -105,16 +105,20 @@ class SongsIndexItem extends React.Component {
 
     const favoriteButtonClass = this.state.toggleFavoriteType=='Unfavorite' ? 'song-button song-button-favorited' : 'song-button'
 
+    const songArtImage = (song.artUrl) ? (
+      <Link to={`/songs/${song.id}`}><img src={song.artUrl} className="song-index-item-art"/></Link>
+    ) : (
+      null
+    )
     return(
-      <div>
-        <div>
-          <img src={song.artUrl} className="song-art-index"/>
+      <div className="song-index-item">
+        <div className="song-index-item-art-container">
+          {songArtImage}
         </div>
-        <div>
-          <div>
-            <Link to={`/users/${artist.id}`}>{artist.username}</Link><br/>
-            <Link to={`/songs/${song.id}`}>{song.title}</Link>
-    
+        <div className="song-index-item-info-player-controls">
+          <div className="song-index-username-title">
+            <div className="song-index-username"><Link to={`/users/${artist.id}`} >{artist.username}</Link></div>
+            <div className="song-index-title"><Link to={`/songs/${song.id}`}>{song.title}</Link></div>
           </div>
           <div className="audio-player-outer-container">
             <button className={`audio-player-play-button ${buttonPlayPauseClass}`} onClick={this.handleTogglePlay}></button>
@@ -133,11 +137,13 @@ class SongsIndexItem extends React.Component {
             />
             {timeDisplay}
           </div>
-          <button onClick={this.toggleFavorite} className={favoriteButtonClass}>
-            <i className="fas fa-heart"/>{this.state.numFavorites}
-          </button>
-          <span><i className="fas fa-play"/>{song.play_count}</span>
-          {deleteSong}
+          <div className="song-index-item-controls">
+            <button onClick={this.toggleFavorite} className={favoriteButtonClass}>
+              <i className="fas fa-heart"/>{this.state.numFavorites}
+            </button>
+            <span className="song-play-count"><i className="fas fa-play"/>{song.play_count}</span>
+            {deleteSong}
+          </div>
         </div>
       </div>
     )

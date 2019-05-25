@@ -42,7 +42,6 @@ const removeFavorite = ({userId, songId}) => {
   })
 }
 
-
 //async
 
 export const fetchSongs = bounds => dispatch => (
@@ -50,10 +49,10 @@ export const fetchSongs = bounds => dispatch => (
     .then(songs => dispatch(receiveSongs(songs)))
 )
 
-export const fetchSongsFromStream = bounds => dispatch => (
-  APIUtil.fetchSongsFromStream(bounds)
+export const fetchSongsFromStream = bounds => dispatch => {
+  return APIUtil.fetchSongsFromStream(bounds)
     .then(songs => dispatch(receiveSongs(songs)))
-)
+}
 
 export const fetchSong = id => dispatch => (
   APIUtil.fetchSong(id)

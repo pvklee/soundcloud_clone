@@ -1,6 +1,5 @@
 class Api::SearchesController < ApplicationController
   def index
-
     @searchSuggestionIds = []
     @searchResultIds = []
     @songs

@@ -2,6 +2,9 @@ import React from 'react'
 import SongsIndexItemContainer from '../shared_song_index/songs_index_item_container'
 
 export default class HistoryIndex extends React.Component{
+  componentDidMount(){
+    document.title = "History";
+  }
   render(){
     const {songs, listens} = this.props;
     if (!listens) {return null};

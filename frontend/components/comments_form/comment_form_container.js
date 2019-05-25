@@ -3,8 +3,8 @@ import {createComment} from '../../actions/comment_actions'
 import CommentForm from './comment_form'
 
 const mapStateToProps = state => ({
-  state: state,
-  currentUserId: state.session.currentUserId
+  currentUserId: state.session.currentUserId,
+  currentSongTime: state.ui.currentSong.currentSongTime
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -17,7 +17,7 @@ export default class CommentForm extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     const comment = Object.assign({}, this.state);
-    if(!comment.parent_comment_id) {comment.song_time = this.props.state.ui.currentSong.time};
+    if(!comment.parent_comment_id) {comment.song_time = this.props.currentSongTime};
     this.props.createComment(comment)
       .then(()=>this.setState({body: ''}))
   }

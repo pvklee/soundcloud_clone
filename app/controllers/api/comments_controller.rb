@@ -6,6 +6,7 @@ class Api::CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    byebug
     if @comment.save
       render 'show'
     else
