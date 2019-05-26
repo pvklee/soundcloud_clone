@@ -78,13 +78,13 @@ export default class UserProfile extends React.Component {
     if (!user) return null;
 
     const changeProfilePictureButton = (user.id == currentUserId) ? (
-      <label className="change-profile-picture-button">
-        Change Picture
-        <input
-          type="file"
-          onChange={this.onProfilePictureChange}
-        />
-      </label>
+        <label className="change-profile-picture-button">
+          Change Picture
+          <input
+            type="file"
+            onChange={this.onProfilePictureChange}
+          />
+        </label>
     ) : ''
 
     const image = user.profilePictureUrl ? <img src={user.profilePictureUrl}/> : null;
@@ -96,8 +96,10 @@ export default class UserProfile extends React.Component {
     return (
       <div>
         <div className="user-profile-picture-username-follow">
-          <div className="user-profile-picture">
-            {image}
+          <div>
+            <div className="user-profile-picture">
+              {image}
+            </div>
             {changeProfilePictureButton}
           </div>
           <div className="user-profile-username-follow">
