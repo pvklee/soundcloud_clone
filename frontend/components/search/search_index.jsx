@@ -3,20 +3,34 @@ import SongsIndexItemContainer from '../shared_song_index/songs_index_item_conta
 import UsersIndexItemContainer from '../shared_user_index/users_index_item_container'
 export default class SearchIndex extends React.Component {
   componentDidMount(){
-    const {query, fetchSearchResults} = this.props;
-    fetchSearchResults(query);
+    const {query, fetchSearchResults, startLoading, stopLoading} = this.props;
+    startLoading();
+    fetchSearchResults(query)
+      .then(()=>stopLoading());
     document.title = `Search results for "${query}"`
   }
 
   componentDidUpdate(prevProps){
     if(prevProps.query !== this.props.query){
-      this.props.fetchSearchResults(this.props.query);
+      const {query, fetchSearchResults, startLoading, stopLoading} = this.props;
+      startLoading();
+      fetchSearchResults(query)
+        .then(()=>stopLoading());
       document.title = `Search results for "${query}"`
     }
   }
 
   render(){
-    const {query, songs, users, searchResultIds} = this.props;
+    const {query, songs, users, searchResultIds, loading} = this.props;
+
+    if (loading) {return(
+      <div className="loading-spinner">
+        <div className="la-ball-clip-rotate la-dark la-3x">
+          <div></div>
+        </div>
+      </div>
+    )}
+
     if (!searchResultIds) {return null};
 
     const searchList = searchResultIds.map(result => {

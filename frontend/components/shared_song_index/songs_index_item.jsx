@@ -148,11 +148,6 @@ class SongsIndexItem extends React.Component {
       </div>
     )
 
-    const loading = (
-      <div class="la-ball-clip-rotate la-dark">
-        <div></div>
-      </div>
-    ) 
   }
 }
 

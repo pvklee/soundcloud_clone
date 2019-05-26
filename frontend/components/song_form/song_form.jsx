@@ -11,11 +11,16 @@ export default class SongForm extends React.Component {
       songFile: null,
       songUrl: '',
       artFile: null,
-      artUrl: ''
+      artUrl: '',
+      errors: []
     };
     this.update = this.update.bind(this);
     this.updateFile = this.updateFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    document.title = "Upload"
   }
 
   update(prop){
@@ -37,7 +42,8 @@ export default class SongForm extends React.Component {
     }
 
     this.props.createSong(formData)
-      .then(data => this.props.history.push(`/users/${this.props.artistId}`));
+      .then(data => this.props.history.push(`/users/${this.props.artistId}`))
+      .fail(() => this.setState({errors: this.props.errors}))
   }
 
   updateFile(type){
@@ -69,43 +75,75 @@ export default class SongForm extends React.Component {
   }
 
   render(){
+    let songFormArt;
+    if (this.state.artUrl){
+      songFormArt = (
+        <div className="song-form-item song-index-item-art-container">
+          <img src={this.state.artUrl} className="song-index-item-art"/>
+        </div>
+      )
+    }
+
+    const songAudioPlayer = (this.state.songUrl) ? (
+      <div className="song-form-item">
+        <ReactAudioPlayer
+          src={this.state.songUrl}
+          controls />
+      </div>
+    ) : (
+      null
+    )
+
+    const errorMessages = this.state.errors.map(error => <li key={error}>{error}</li>);
+
     return(
-      <div>
-        <form>
-          <label>Title:
-            <input 
-              type="text"
-              value={this.state.description} 
-              onChange={this.update('title')}/>
-          </label><br/>
-          <label>Type:
-            <select
-              value={this.state.genre}
-              onChange={this.update('genre')}
-            >
-              {this.props.genres.map((genre, i) => {
-                return <option value={genre} key={i}>{genre}</option>;
-              })}
-            </select>
-          </label><br/>
-          <label>Song:
-            <input
-              type="file"
-              onChange={this.updateFile('song')}
-            />
-          </label><br/>
-          <ReactAudioPlayer
-            src={this.state.songUrl}
-            controls
-          /><br/>
-          <label>Art:
-            <input
-              type="file"
-              onChange={this.updateFile('art')}
-            />
-          </label><br/>
-          <img src={this.state.artUrl} className="song-art-detail"/>
-          <button onClick={this.handleSubmit}>Create</button>
+      <div className="song-form-outer-container">
+        <form className="song-form">
+          <div className="song-form-title">Upload your creation.</div>
+          <div className="song-form-errors">
+            <ul>{errorMessages}</ul>
+          </div>
+          <div className="song-form-item">
+            <label>Title:
+              <input 
+                type="text"
+                value={this.state.description} 
+                onChange={this.update('title')}/>
+            </label>
+          </div>
+          <div className="song-form-item">
+            <label>Genre:
+              <select
+                value={this.state.genre}
+                onChange={this.update('genre')}
+              >
+                {this.props.genres.map((genre, i) => {
+                  return <option value={genre} key={i}>{genre}</option>;
+                })}
+              </select>
+            </label>
+          </div>
+          <div className="song-form-item">
+            <label className="song-form-upload-button">
+              Upload Song
+              <input
+                type="file"
+                onChange={this.updateFile('song')}
+              />
+            </label>
+          </div>
+            {songAudioPlayer}
+          <div className="song-form-item">
+            <label className="song-form-upload-button">
+              Upload Art
+              <input
+                type="file"
+                onChange={this.updateFile('art')}
+              />
+            </label>
+          </div>
+            {songFormArt}
+          <button className="song-form-submit" onClick={this.handleSubmit}>Create</button>
         </form>
       </div>
     )

@@ -20,16 +20,16 @@ export default class UsersIndexItem extends React.Component {
 
   toggleFollow(e){
     e.preventDefault();
-    this.state.following ? this.setUnfollowUser() : this.setFollowUser();
+    if(!this.props.currentUser) {this.props.openLoginFormModal();}
+    else {
+      this.state.following ? this.setUnfollowUser() : this.setFollowUser();
+    }
   }
 
   setFollowUser(){
-    const {user, followUser, currentUser,openLoginFormModal} = this.props;
-    if(!currentUser) {openLoginFormModal();}
-    else{
-      followUser(user.id);
-      this.setState({following: true})
-    };
+    const {user, followUser} = this.props;
+    followUser(user.id);
+    this.setState({following: true})
   }
 
   setUnfollowUser(){
@@ -42,19 +42,22 @@ export default class UsersIndexItem extends React.Component {
     const {currentUser, user} = this.props;
 
     const followButtonText = this.state.following ? 'Following' : 'Follow';
-
+    const followButtonClass = this.state.following? 'follow-button follow-button-following' : 'follow-button follow-button-follow'
+    const image = user.profilePictureUrl ? <img src={user.profilePictureUrl}/> : null;
     return(
       <div className="user-index-item">
         <div>
           <Link to={`/users/${user.id}`}>
-            <img src={user.profilePictureUrl} className="user-profile-picture"/> 
+            <div className="user-profile-picture">
+              {image}
+            </div>
           </Link>
         </div>
         <div className="user-index-item-username-follow">
           <Link to={`/users/${user.id}`}>
             <span className="user-index-item-username">{user.username}</span>
           </Link>
-          <button onClick={this.toggleFollow} className="toggle-follow-button">{followButtonText}</button>
+          <button onClick={this.toggleFollow} className={followButtonClass}>{followButtonText}</button>
         </div>
       </div>
     )

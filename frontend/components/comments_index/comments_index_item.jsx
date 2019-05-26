@@ -18,18 +18,31 @@ export default ({thisComment, comments, songId, currentUserId, users}) => {
 
   return(
     <div>
-      <div>
-        <Link to={`/users/${thisComment.user_id}`}>
-          {profilePicture}
-        </Link>
-        <Link to={`/users/${thisComment.user_id}`}>
-          {username}
-        </Link>
-        at {formatTime(thisComment.song_time)}
+      <div className="comment">
+        <div className="comment-picture-username-body">
+          <div className="comment-picture">
+            <Link to={`/users/${thisComment.user_id}`}>
+              {profilePicture}
+            </Link>
+          </div>
+          <div className="comment-username-body">
+            <div className="comment-username">
+              <div>
+                <Link to={`/users/${thisComment.user_id}`} className="comment-username-link">
+                    {username} 
+                </Link>
+                at {formatTime(thisComment.song_time)}
+              </div>
+              <div>{moment(thisComment.created_at).fromNow()}</div>
+            </div>
+            
+            <div>{thisComment.body}</div>
+          </div>
+        </div>
       </div>
-      <div>{moment(thisComment.created_at).fromNow()}</div>
-      <div>{thisComment.body}</div>
-      <CommentFormContainer songId={songId} parentCommentId={thisComment.id}/>
+      <div className="comment-form-container">
+        <CommentFormContainer songId={songId} parentCommentId={thisComment.id}/>
+      </div>
       <div className="nested-comments">{commentsList}</div>
     </div>
   )

@@ -6,8 +6,8 @@ import StreamIndex from './stream_index'
 
 const mapStateToProps = state => ({
   songs: state.entities.songs,
-  filteredSongIds: state.ui.filters.filteredSongIds,
-  filteredSongs: selectSongsFromSongIds(state, state.ui.filters.filteredSongIds),
+  streamSongIds: state.ui.filters.streamSongIds,
+  streamSongs: selectSongsFromSongIds(state, state.ui.filters.streamSongIds),
   loading: state.ui.loading.loading
 })
 

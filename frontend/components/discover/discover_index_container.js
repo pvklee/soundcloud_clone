@@ -4,12 +4,14 @@ import {startLoading, stopLoading} from '../../actions/loading_actions'
 import {selectSongsFromSongIds} from '../../reducers/selectors'
 import DiscoverIndex from './discover_index'
 
-const mapStateToProps = state => ({
-  songs: state.entities.songs,
-  filteredSongIds: state.ui.filters.filteredSongIds,
-  filteredSongs: selectSongsFromSongIds(state.ui.filters.filteredSongIds),
-  loading: state.ui.loading.loading
-})
+const mapStateToProps = state => {
+  return({
+    songs: state.entities.songs,
+    discoverSongIds: state.ui.filters.discoverSongIds,
+    discoverSongs: selectSongsFromSongIds(state, state.ui.filters.discoverSongIds),
+    loading: state.ui.loading.loading
+  })
+}
 
 const mapDispatchToProps = dispatch => ({
   fetchSongs: () => dispatch(fetchSongs()),

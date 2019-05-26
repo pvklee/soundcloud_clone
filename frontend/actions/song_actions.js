@@ -6,12 +6,19 @@ export const RECEIVE_SONG = "RECEIVE_SONG"
 export const REMOVE_SONG = "REMOVE_SONG"
 export const RECEIVE_FAVORITE = "RECEIVE_FAVORITE"
 export const REMOVE_FAVORITE = "REMOVE_FAVORITE"
+export const RECEIVE_SONG_FORM_ERRORS = "RECEIVE_SONG_FORM_ERRORS"
 
-const receiveSongs = ({songs, artists, filteredSongIds}) => ({
+const receiveSongs = ({songs, artists, discoverSongIds, streamSongIds}) => ({
   type: RECEIVE_SONGS,
   songs,
   artists,
-  filteredSongIds
+  discoverSongIds,
+  streamSongIds
+})
+
+const receiveSongFormErrors = err => ({
+  type: RECEIVE_SONG_FORM_ERRORS,
+  err
 })
 
 const receiveSong = ({song, artist}) => ({
@@ -67,6 +74,7 @@ export const fetchSongsFromUser = userId => dispatch => (
 export const createSong = song => dispatch => (
   APIUtil.createSong(song)
     .then(song => dispatch(receiveSong(song)))
+    .fail(err => dispatch(receiveSongFormErrors(err.responseJSON)))
 )
 
 export const deleteSong = songId => dispatch => (

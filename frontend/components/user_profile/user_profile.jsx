@@ -5,9 +5,15 @@ export default class UserProfile extends React.Component {
   constructor(props){
     super(props);
 
-    const following = this.props.currentUser && this.props.currentUser.usersFollowing ? !! this.props.currentUser.usersFollowing[this.props.userId] : false;
+    let followingState;
+    if(this.props.currentUser && this.props.currentUser.usersFollowedIds){
+      followingState = this.props.currentUser.usersFollowedIds.includes(parseInt(this.props.userId));
+    } else {
+      followingState = false;
+    }
+
     this.state = {
-      following: following
+      following: followingState
     }
 
     this.onProfilePictureChange = this.onProfilePictureChange.bind(this);
@@ -49,7 +55,10 @@ export default class UserProfile extends React.Component {
 
   toggleFollow(e){
     e.preventDefault();
-    this.state.following ? this.setUnfollowUser() : this.setFollowUser();
+    if(!this.props.currentUser) {this.props.openLoginFormModal();}
+    else {
+      this.state.following ? this.setUnfollowUser() : this.setFollowUser();
+    }
   }
 
   setFollowUser(){
@@ -69,7 +78,7 @@ export default class UserProfile extends React.Component {
     if (!user) return null;
 
     const changeProfilePictureButton = (user.id == currentUserId) ? (
-      <label class="change-profile-picture-button">
+      <label className="change-profile-picture-button">
         Change Picture
         <input
           type="file"
@@ -78,15 +87,24 @@ export default class UserProfile extends React.Component {
       </label>
     ) : ''
 
+    const image = user.profilePictureUrl ? <img src={user.profilePictureUrl}/> : null;
+
     const followButtonText = this.state.following ? 'Following' : 'Follow';
+    const followButtonClass = this.state.following? 'follow-button follow-button-following' : 'follow-button follow-button-follow'
 
     const createdSongIds = user.createdSongIds || []
     return (
       <div>
-        <img className="user-profile-picture" src={user.profilePictureUrl}/>
-        {changeProfilePictureButton}
-        {user.username}
-        <button onClick={this.toggleFollow}>{followButtonText}</button>
+        <div className="user-profile-picture-username-follow">
+          <div className="user-profile-picture">
+            {image}
+            {changeProfilePictureButton}
+          </div>
+          <div className="user-profile-username-follow">
+            <span className="user-profile-username">{user.username}</span>
+            <button onClick={this.toggleFollow} className={followButtonClass}>{followButtonText}</button>
+          </div>
+        </div>
         <UserSongsIndexContainer songIds={createdSongIds}/>
       </div>
     )

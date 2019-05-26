@@ -7,8 +7,6 @@ import FollowingIndexContainer from './following_index_container'
 export default class Library extends React.Component {
   componentDidMount(){
     const {currentUserId, fetchFavoriteSongsOfUser, fetchListenedSongsOfUser} = this.props;
-    fetchFavoriteSongsOfUser(currentUserId);
-    fetchListenedSongsOfUser(currentUserId);
   }
   render(){
     return(

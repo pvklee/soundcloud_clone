@@ -9,19 +9,19 @@ class Api::SongsController < ApplicationController
       @songs = user.listened_songs
       @song_listens = user.song_listens.order(id: :desc)
     elsif params[:stream]
-      artistIds = current_user.users_followed.pluck(:id)
-      @songs = Song.where(artist_id: artistIds)
-      @filteredSongIds = @songs.pluck(:id)
+      artistIds = current_user.users_followed.order(username: :desc).pluck(:id)
+      @songs = Song.where(artist_id: artistIds).includes(:artist).order(id: :desc)
+      @streamSongIds = @songs.pluck(:id)
     else
-      @songs = Song.includes(:artist)
-      @filteredSongIds = @songs.pluck(:id)
+      @songs = Song.all.includes(:artist).order(id: :desc)
+      @discoverSongIds = @songs.pluck(:id)
     end
 
   end
 
   def create
     @song = Song.new(song_params)
-    if @song.save!
+    if @song.save
       render 'api/songs/show'
     else
       render json: @song.errors.full_messages, status: 422

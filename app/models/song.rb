@@ -22,7 +22,6 @@ class Song < ApplicationRecord
   
   validates :title, :artist_id, :genre, :play_count, presence: true
   validates :genre, inclusion: { in: GENRES }
-
   belongs_to :artist, class_name: :User, foreign_key: :artist_id
 
   has_one_attached :songFile
@@ -36,6 +35,12 @@ class Song < ApplicationRecord
   has_many :listened_users, through: :song_listens, source: :user
 
   after_initialize :ensure_play_count
+
+  def has_songFile?
+    if !self.songFile.attached?
+      errors.add(:base, "No attached song")
+    end
+  end
 
   def num_favorites
     favorites.count;

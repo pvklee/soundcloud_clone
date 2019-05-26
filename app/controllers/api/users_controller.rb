@@ -1,6 +1,12 @@
 class Api::UsersController < ApplicationController
   def index
-    params[:songId] ? @users = Song.find(params[:songId]).commented_users : User.all
+    if params[:songId] 
+      @users = Song.find(params[:songId]).commented_users
+    elsif params[:userIds]
+      @users = User.find(params[:userIds])
+    else
+      @users = User.all
+    end
   end
 
   def create

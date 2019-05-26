@@ -24,5 +24,6 @@ if @song_listens
   end
 end
 
-json.filteredSongIds @filteredSongIds
+json.streamSongIds @streamSongIds
+json.discoverSongIds @discoverSongIds
 json.songSearchIds @songSearchIds

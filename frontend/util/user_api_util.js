@@ -5,6 +5,13 @@ export const fetchUser = (userId) => {
   })
 }
 
+export const fetchUsersFromUserIds = userIds => (
+  $.ajax({
+    url: 'api/users',
+    method: 'GET',
+    data: {userIds: userIds}
+  })
+)
 export const fetchUsersFromSongComments = (songId) => {
   return $.ajax({
     url: `api/users`,

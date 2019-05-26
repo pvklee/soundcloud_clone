@@ -1,6 +1,6 @@
 import {RECEIVE_CURRENT_USER} from '../actions/session_actions'
 import {RECEIVE_SONG, RECEIVE_SONGS, REMOVE_SONG, RECEIVE_FAVORITE, REMOVE_FAVORITE} from '../actions/song_actions'
-import {RECEIVE_USER, RECEIVE_USERS} from '../actions/user_actions'
+import {RECEIVE_USER, RECEIVE_USERS, UPDATE_FOLLOWS} from '../actions/user_actions'
 import {RECEIVE_SEARCH_SUGGESTIONS, RECEIVE_SEARCH_RESULTS} from '../actions/search_actions'
 import merge from 'lodash/merge'
 
@@ -23,6 +23,10 @@ const usersReducer = (state = {}, action) => {
       return merge({}, state, {[action.user.id]: action.user});
     case RECEIVE_USERS:
       return merge({}, state, action.users);
+    case UPDATE_FOLLOWS:
+      newState = merge({}, state);
+      newState[action.user.id].usersFollowedIds = action.user.usersFollowedIds;
+      return newState;
     case RECEIVE_FAVORITE:
       newState = merge({}, state);
       newState[action.userId].favoriteSongIds.push(action.songId);

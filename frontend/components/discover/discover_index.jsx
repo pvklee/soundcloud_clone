@@ -8,7 +8,7 @@ export default class DiscoverIndex extends React.Component {
     this.props.fetchSongs().then(() => this.props.stopLoading());
   }
   render(){
-    const {songs, filteredSongIds, loading} = this.props;
+    const {songs, discoverSongs, loading} = this.props;
     if (loading) {return (
       <div class="loading-spinner">
         <div class="la-ball-clip-rotate la-dark la-3x">
@@ -16,10 +16,11 @@ export default class DiscoverIndex extends React.Component {
         </div>
       </div>
     )};
-    if (!filteredSongIds) {return null};
+
+    if (!discoverSongs) {return null};
     let songsList = [];
-    filteredSongIds.forEach((id)=>{
-      songs[id] ? songsList.push(<SongsIndexItemContainer key={id} song={songs[id]}/>) : null
+    discoverSongs.forEach((song)=>{
+      song ? songsList.push(<SongsIndexItemContainer key={song.title} song={song}/>) : null
     });
 
     return (

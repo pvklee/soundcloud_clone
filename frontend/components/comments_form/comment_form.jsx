@@ -32,17 +32,14 @@ export default class CommentForm extends React.Component {
 
     return (
       <div>
-        {/* <div>
-          <ul>{errorMessages}</ul>
-        </div> */}
-        <form>
+        <form className="comment-form">
           <input 
             type='text'
             value={this.state.body}
             onChange={this.update('body')}
-            placeholder='write your comment here' />
+            placeholder='write your reply here' />
           <br/>
-          <button onClick={this.handleSubmit}>Submit</button>
+          <button onClick={this.handleSubmit} className="comment-form-submit">Submit</button>
         </form>
       </div>
     )

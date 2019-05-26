@@ -18,6 +18,9 @@ export default class CommentsIndex extends React.Component {
     return (
       <div>
         <CommentFormContainer songId={songId} currentSongTime={currentSongTime}/>
+        <div className="comments-index-text">
+          Comments
+        </div>
         {commentsList}
       </div>
     )

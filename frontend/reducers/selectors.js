@@ -2,6 +2,10 @@ export const selectAllSessionErrors = state => (
   Object.values(state.errors.session)
 )
 
+export const selectAllSongFormErrors = state => (
+  Object.values(state.errors.songForm)
+)
+
 export const selectAllSongs = state => (
   Object.values(state.entities.songs)
 )

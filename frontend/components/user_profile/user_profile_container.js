@@ -3,6 +3,7 @@ import UserProfile from './user_profile'
 import {fetchUser, updateUserProfilePicture, followUser, unfollowUser} from '../../actions/user_actions'
 import {startLoading,stopLoading} from '../../actions/loading_actions'
 import {fetchSongsFromUser} from '../../actions/song_actions'
+import {openLoginFormModal} from '../../actions/modal_actions'
 
 const mapStateToProps = (state, {match}) => ({
   userId: match.params.userId,
@@ -19,6 +20,7 @@ const mapDispatchToProps = dispatch => ({
   unfollowUser: userId => dispatch(unfollowUser(userId)),
   startLoading: () => dispatch(startLoading()),
   stopLoading: () => dispatch(stopLoading()),
+  openLoginFormModal: () => dispatch(openLoginFormModal())
 })
 
 export default connect(

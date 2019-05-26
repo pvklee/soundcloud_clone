@@ -8,7 +8,7 @@ export default class StreamIndex extends React.Component {
     this.props.fetchSongsFromStream().then(() => this.props.stopLoading());
   }
   render(){
-    const {songs, filteredSongIds, loading} = this.props;
+    const {songs, streamSongs, loading} = this.props;
 
     if (loading) {return(
       <div class="loading-spinner">
@@ -18,11 +18,11 @@ export default class StreamIndex extends React.Component {
       </div>
     )}
 
-    if (!filteredSongIds) {return null}
+    if (!streamSongs) {return null}
 
     let songsList = [];
-    filteredSongIds.forEach((id)=>{
-      songs[id] ? songsList.push(<SongsIndexItemContainer key={id} song={songs[id]}/>) : null
+    streamSongs.forEach((song)=>{
+      song ? songsList.push(<SongsIndexItemContainer key={song.title} song={song}/>) : null
     });
 
     return (

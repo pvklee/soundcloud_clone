@@ -71,6 +71,25 @@ body{
   height: 100%;
 }
 
+.upload-button{
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+
+.upload-button:hover{
+  color: orangered;
+}
+
+.header-greeting-text{
+  margin-right: 10px;
+}
+
+.header-greeting-text:hover{
+  color: orangered;
+}
+
+
 .search-bar{
   position: relative;
   flex: 1;
@@ -129,6 +148,7 @@ body{
   width: 1000px;
   margin: auto;
   margin-top: 50px;
+  min-height: 500px;
 }
 
 .main-info-container{
@@ -170,10 +190,10 @@ body{
 
 @keyframes fadeIn {
   0% {
-    background-color: rgba(255, 255, 255, 0)
+    background-color: rgba(255, 255, 255, 0);
   }
   100% {
-    background-color: rgba(255, 255, 255, 0.3)
+    background-color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -186,7 +206,7 @@ body{
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   z-index: 10;
   animation: 500ms ease-out 0s 1 forwards fadeIn;
 }
@@ -204,23 +224,36 @@ body{
   display: flex;
   flex-direction: column;
   background-color: white;
-  height: 500px;
-  width: 400px;
+  height: 400px;
+  width: 300px;
+  padding: 30px;
   animation: 500ms ease-out 0s 1 slideInFromTop;
+  border: 1px solid lightgray;
+}
+
+.modal-child div{
+  box-shadow: none;
 }
 
 .input{
 
 }
 
-.nested-comments{
-  padding-left: 20px;
-}
+
 
 .user-profile-picture{
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  margin-right: 10px;
+  background-color: white;
+  overflow: hidden;
+}
+
+.user-profile-picture img{
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%
 }
 
 .user-profile-picture-comment{
@@ -532,7 +565,7 @@ div{
   color: gray;
 }
 .song-index-title{
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .song-index-item-art-container{
@@ -592,4 +625,242 @@ div{
 
 .change-profile-picture-button input{
   display: none;
+}
+
+.user-profile-picture-username-follow{
+  display: flex;
+}
+
+.user-profile-username-follow{
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile-username{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.follow-button{
+  padding: 3px;
+  width: 70px;
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 2px;
+  border-color: orangered;
+  background-color: orangered;
+}
+
+.follow-button:hover{
+  border-color: red;
+}
+
+
+.session-form-outer-container{
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
+  padding: 30px;
+  height: 300px;
+}
+
+.session-form{
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+
+.session-form-title{
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.session-form input{
+  border: 1px solid lightgray;
+  padding: 3px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.session-form-errors{
+  font-size:18px;
+  margin-bottom: 10px;
+}
+
+.session-form-errors li{
+  margin-bottom: 5px;
+}
+
+.session-form-button{
+  padding: 3px 10px;
+  background-color: orangered;
+  border: 1px solid orangered;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.session-form-button:hover{
+  background-color: rgb(255, 118, 68);
+}
+
+.session-form-button:active{
+  background-color: rgb(219, 72, 18);
+}
+
+.song-form-outer-container{
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
+  padding: 30px;
+  font-size: 24px;
+}
+
+.song-form{
+  display: flex;
+  flex-direction: column;
+}
+
+.song-form-title{
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.song-form-item{
+  margin-bottom: 10px;
+}
+
+.song-form select{
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.song-form-upload-button{
+  background-color: white;
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.song-form-upload-button input{
+  display: none;
+  cursor: pointer;
+}
+
+.song-form-upload-button:hover{
+  border: 1px solid orangered;
+  color: orangered;
+}
+
+.song-form-submit{
+  padding: 3px 10px;
+  background-color: orangered;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.song-form-submit:hover{
+  background-color: red;
+}
+
+.song-form-errors{
+  font-size:18px;
+  margin-bottom: 10px;
+}
+
+.song-form-errors li{
+  margin-bottom: 5px;
+}
+
+.comment{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
+  margin-bottom: 10px;
+}
+
+.comment-picture-username-body{
+  display: flex;
+
+}
+
+.comment-username-body{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.comment-username{
+  display: flex;
+  justify-content: space-between;
+  color: gray;
+}
+
+.comment-username-link{
+  margin-right: 3px; 
+}
+
+.comment-username-link:hover{
+  color: orangered;
+}
+
+.comment-picture{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+
+.comment-picture img{
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%
+}
+
+.comment-form{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.comment-form input{
+  width: 130px;
+}
+
+.comment-form-submit{
+  cursor: pointer;
+  color: black;
+  background-color: rgb(211, 241, 255);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+.comment-form-submit:hover{
+  background-color: rgb(146, 221, 255);
+}
+
+.nested-comments{
+  margin-left: 20px;
+}
+
+.comments-index-text{
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px
 }
