@@ -12,9 +12,9 @@ Users can upload songs, follow other users, favorite songs, comment on songs, an
 
 I used Ruby on Rails for the backend, including user authentication and MVC patterns. I used PostgreSQL to store the data.
 
-For the frontend, I used React for the UI and Redux for state management.
+For the frontend, I used React for the single-page application UI and Redux for state management.
 
-For the waveform graphics, I found [wavesurfer.js](https://github.com/katspaugh/wavesurfer.js/blob/master/README.md) and wrapped the audio player with a React component.
+For the waveform graphics, I found a cool waveform visualizer called [wavesurfer.js](https://github.com/katspaugh/wavesurfer.js/blob/master/README.md), which I wrapped with a React component.
 
 ## Highlighted features
 
