@@ -22,6 +22,7 @@ class Song < ApplicationRecord
   
   validates :title, :artist_id, :genre, :play_count, presence: true
   validates :genre, inclusion: { in: GENRES }
+  validate :has_songFile?
   belongs_to :artist, class_name: :User, foreign_key: :artist_id
 
   has_one_attached :songFile
