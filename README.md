@@ -18,4 +18,8 @@ For the waveform graphics, I found a cool waveform visualizer called [wavesurfer
 
 ## Highlighted features
 
-## Code snippets
+* Utilized Amazon S3 cloud services for audio and image files to reduce server load.
+* Made audio waveform visualizations using wavesurfer.js library and a custom React component.
+* Designed re-usable React components for songs, users, search results, and comments.
+* Custom Ruby on Rails endpoints for filtering songs from all users, followed users, or a single user.
+* Ensured user privacy through BCrypt authentication and protected routes.
